@@ -2,122 +2,143 @@ import React, { Component } from "react";
 import CardItem from "./components/CardItem";
 import Dots from "./components/Dots";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import Arrows from './components/Arrows';
 
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    console.log("component ok");
-  }
+    constructor(props) {
+        super(props);
+        console.log("component ok");
+    }
 
-  state = {
-    cards: [
-        {
-            id: 0,
-            url:
-            "https://images.pexels.com/photos/3709388/pexels-photo-3709388.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-            name: "Winter Is Comming",
-            shown: true
-        },
+    state = {
+        slideIndex: 0,
         
-        {
-            id: 1,
-            url:
-            "https://images.pexels.com/photos/2228561/pexels-photo-2228561.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
-            name: "In July",
-            shown: false
-        },
+        cards: [
+            {
+                id: 0,
+                url:
+                "https://images.pexels.com/photos/3709388/pexels-photo-3709388.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+                name: "Winter Is Comming",
+                shown: true
+            },
+            
+            {
+                id: 1,
+                url:
+                "https://images.pexels.com/photos/2228561/pexels-photo-2228561.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+                name: "In July",
+                shown: false
+            },
 
-        {
-            id: 2,
-            url:
-            "https://images.pexels.com/photos/2449600/pexels-photo-2449600.png?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
-            name: "A Day To Remember",
-            shown: false
-        },
+            {
+                id: 2,
+                url:
+                "https://images.pexels.com/photos/2449600/pexels-photo-2449600.png?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+                name: "A Day To Remember",
+                shown: false
+            },
 
-        {
-            id: 3,
-            url:
-            "https://images.pexels.com/photos/1820144/pexels-photo-1820144.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
-            name: "Look At Me Now",
-            shown: false
-        }
-    ]
-  };
-
-  
-  handleClickDots = (id) => {
-        // index of the selected item
-        const cardIndex = this.state.cards.findIndex(p => {
-            return p.id === id
-        });
-        
-        /* clone new arr */
-        let newSlides = [...this.state.cards];
-
-        newSlides[cardIndex].shown = true;
-        newSlides.forEach(item => {
-            if (item.id !== id) {
-                item.shown = false;
+            {
+                id: 3,
+                url:
+                "https://images.pexels.com/photos/1820144/pexels-photo-1820144.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+                name: "Look At Me Now",
+                shown: false
             }
-        })
-         
-        // newSlides[cardIndex].shown = newSlides[cardIndex].shown ? false : true;
+        ]
+    };
+   
+
+    componentDidMount() {
         
+    }
+
+    handleClickRightArrow () {
+        this.setState({
+            slideIndex : this.state.slideIndex += 1
+        })
+
+        if (this.state.slideIndex > 3) {
+            this.setState({
+                slideIndex : 0
+            })
+        }
+    }
+
+    handleClickLeftArrow () {
+        const itemsLength = this.state.cards.length;
 
         this.setState({
-            cards: newSlides
+            slideIndex : this.state.slideIndex -= 1
         })
         
-  };    
-  
-  render() {
-    let items = null;
-    let renderDots = null;
+        if (this.state.slideIndex < 0) {
+            this.setState({
+                slideIndex : itemsLength - 1
+            })
+        }
+    }
+    
+    handleClickDots = (index) => {
+        this.setState({
+            slideIndex: index
+        })
+    };    
 
-    items = (
-      <div>
-        {this.state.cards.map((item, index) => {
-          if (item.shown) {
-            return (
-                <CardItem 
-                    source={item.url}  
-                    name={item.name} 
-                    key={item.id} 
-                />
-            );
-          }
-        })}
-      </div>
-    );
-         
-    renderDots = (
-      <div>
-        {this.state.cards.map((item, index) => {
-          return (
-                <Dots 
-                    isDotActive={item.shown}      
-                    clickDots={() => this.handleClickDots(item.id)}
-                    key={item.id}
-                />
-          );
-        })}
-      </div>
-    );
+    
+    render() {
+        let items = null;
+        let renderDots = null;
+        
+        items = (
+            <div>
+                {this.state.cards.map((item, index) => {
+                    // return only the item that has its index === slideIndex
+                    if (index === this.state.slideIndex ) {
+                        return (
+                            <CardItem 
+                                source={item.url}  
+                                name={item.name} 
+                                key={item.id} 
+                            />
+                        );
+                    }
+                })}
+            </div>
+        );
 
-    return (
-        <div className="container">
-            <div className="row">
-                <div className="col-lg-10">
-                    {items}
-                    {renderDots}
+        renderDots = (
+            <div>
+                {this.state.cards.map((item, index) => {
+
+                    return (
+                        <Dots 
+                            isDotActive={index === this.state.slideIndex ? true : false}      
+                            clickDots={() => this.handleClickDots(index)}
+                            key={item.id}
+                        />
+                    );
+                })}
+            </div>
+        );
+
+        return (
+            <div className="container">
+                <div className="row">
+                    <div className="col-lg-10">
+                        {items}
+                        {renderDots}
+
+                        <Arrows 
+                            moveSliderRight={() => this.handleClickRightArrow()}
+                            moveSliderLeft={() => this.handleClickLeftArrow()}
+                        />
+                    </div>
                 </div>
             </div>
-        </div>
-    );
-  }
+        );
+    }
 }
 
 export default App;

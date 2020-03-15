@@ -9,7 +9,7 @@ const Dots = props => {
     }
     
     return (
-        <div onClick={props.clickDots} className={dotsClasses.join(' ')} isACtive={props.active} >
+        <div onClick={props.clickDots}  className={dotsClasses.join(' ')} >
 
         </div>
     );
