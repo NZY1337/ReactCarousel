@@ -1,0 +1,17 @@
+
+.carousel-wrapper {
+    height:800px!important;
+}
+
+.carousel-wrapper::before {
+    background-color: rgba(0, 0, 0, 0.37);
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
+
+.carousel-wrapper p {
+    color:darkgray;
+}

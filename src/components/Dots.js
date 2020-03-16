@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./CardItem.module.css";
-
+    
 const Dots = props => {
     const dotsClasses = [styles.dots];
     

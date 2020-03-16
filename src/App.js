@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import './App.css';
 import CardItem from "./components/CardItem";
 import Dots from "./components/Dots";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,15 +11,14 @@ class App extends Component {
         super(props);
         console.log("component ok");
     }
-
+    
     state = {
         slideIndex: 0,
         
         cards: [
             {
                 id: 0,
-                url:
-                "https://images.pexels.com/photos/3709388/pexels-photo-3709388.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+                url:"https://images.pexels.com/photos/1090638/pexels-photo-1090638.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
                 name: "Winter Is Comming",
                 shown: true
             },
@@ -26,7 +26,7 @@ class App extends Component {
             {
                 id: 1,
                 url:
-                "https://images.pexels.com/photos/2228561/pexels-photo-2228561.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+                "https://images.pexels.com/photos/584399/living-room-couch-interior-room-584399.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
                 name: "In July",
                 shown: false
             },
@@ -34,7 +34,7 @@ class App extends Component {
             {
                 id: 2,
                 url:
-                "https://images.pexels.com/photos/2449600/pexels-photo-2449600.png?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+                "https://images.pexels.com/photos/271795/pexels-photo-271795.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
                 name: "A Day To Remember",
                 shown: false
             },
@@ -42,7 +42,7 @@ class App extends Component {
             {
                 id: 3,
                 url:
-                "https://images.pexels.com/photos/1820144/pexels-photo-1820144.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+                "https://images.pexels.com/photos/106936/pexels-photo-106936.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
                 name: "Look At Me Now",
                 shown: false
             }
@@ -98,9 +98,9 @@ class App extends Component {
                     if (index === this.state.slideIndex ) {
                         return (
                             <CardItem 
-                                source={item.url}  
                                 name={item.name} 
                                 key={item.id} 
+                                bgImg={item.url}
                             />
                         );
                     }
@@ -111,7 +111,6 @@ class App extends Component {
         renderDots = (
             <div>
                 {this.state.cards.map((item, index) => {
-
                     return (
                         <Dots 
                             isDotActive={index === this.state.slideIndex ? true : false}      
@@ -124,12 +123,12 @@ class App extends Component {
         );
 
         return (
-            <div className="container">
+            <div className="container-fluid React-Carousel">
                 <div className="row">
-                    <div className="col-lg-10">
+                    <div className="col-lg-12 px-0">
                         {items}
                         {renderDots}
-
+                    
                         <Arrows 
                             moveSliderRight={() => this.handleClickRightArrow()}
                             moveSliderLeft={() => this.handleClickLeftArrow()}
