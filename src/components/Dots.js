@@ -9,9 +9,7 @@ const Dots = props => {
     }
     
     return (
-        <div onClick={props.clickDots}  className={dotsClasses.join(' ')} >
-
-        </div>
+        <span onClick={props.clickDots}  className={dotsClasses.join(' ')} ></span>
     );
 };
 

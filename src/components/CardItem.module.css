@@ -1,25 +1,37 @@
-.dots {
-    width: 15px;
-    height: 15px;
-    border:2px solid black;
-    border-radius:50%;
-    display: inline-block;
-    margin-right:.5rem;
-}
-
-.dots:hover {
-    background:black;
-    cursor:pointer;
-}
 
 .isActive {
-    background:black;
+    border-bottom-color: white!important;
+}
+
+.isActive:after {
+    border-top-color: white!important;
 }
 
 .imgSize {
     width:100%;
     max-height: 900px!important;
     object-fit: cover;
+}
+
+.dots {
+    width: 0;
+    height: 0;
+    border: 7px solid transparent;
+    border-bottom-color: black;
+    position: relative;
+    top: -7px;
+    cursor:pointer;
+}
+
+.dots:after {
+    content: '';
+    position: absolute;
+    left: -7px;
+    top: 7px;
+    width: 0;
+    height: 0;
+    border: 7px solid transparent;
+    border-top-color: black;
 }
 
 

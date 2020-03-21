@@ -1,28 +1,21 @@
 import React from 'react';
-
+import arrowLeft from '../assets/images/left-arrow.png'
 const FontAwesomeIcon = require('react-fontawesome');
 
 const Arrows = props => {
+    
     return (
-        <div className="arrows-wrapper">
-            <span href="#" onClick={props.moveSliderLeft}>
-                <FontAwesomeIcon
-                    
-                    className='fa-left mr-4'
-                    name="fas fa-angle-left"
-                    size='3x'
-                    style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
-                />
-            </span>
+        // <FontAwesomeIcon
+        //     className='fa-right text-white d-none'
+        //     name="fas fa-angle-right"
+        //     size='3x'
+        // />
+
+        <div className="arrows-wrapper ml-auto mt-5">
+            <img className="d-none" src={arrowLeft} alt=""/>
+            <div className="arrow-left" onClick={props.moveSliderLeft}></div>
             
-            <span onClick={props.moveSliderRight} href="#">
-                <FontAwesomeIcon
-                    className='fa-right'
-                    name="fas fa-angle-right"
-                    size='3x'
-                    style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
-                />
-            </span>
+            <div className="arrow-right" onClick={props.moveSliderRight} href="#"></div>
         </div>
     )
 }

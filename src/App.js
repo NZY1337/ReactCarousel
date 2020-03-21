@@ -5,7 +5,6 @@ import Dots from "./components/Dots";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Arrows from './components/Arrows';
 
-
 class App extends Component {
     constructor(props) {
         super(props);
@@ -14,13 +13,14 @@ class App extends Component {
     
     state = {
         slideIndex: 0,
-        
+        bgImg: null,
         cards: [
             {
                 id: 0,
                 url:"https://images.pexels.com/photos/1090638/pexels-photo-1090638.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
                 name: "Winter Is Comming",
-                shown: true
+                shown: true,
+                category: 'interior'
             },
             
             {
@@ -28,7 +28,8 @@ class App extends Component {
                 url:
                 "https://images.pexels.com/photos/584399/living-room-couch-interior-room-584399.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
                 name: "In July",
-                shown: false
+                shown: false,
+                category: 'outdoor'
             },
 
             {
@@ -36,7 +37,8 @@ class App extends Component {
                 url:
                 "https://images.pexels.com/photos/271795/pexels-photo-271795.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
                 name: "A Day To Remember",
-                shown: false
+                shown: false,
+                category: 'minimalistic'
             },
 
             {
@@ -44,7 +46,8 @@ class App extends Component {
                 url:
                 "https://images.pexels.com/photos/106936/pexels-photo-106936.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
                 name: "Look At Me Now",
-                shown: false
+                shown: false,
+                category: 'abstract'
             }
         ]
     };
@@ -90,26 +93,42 @@ class App extends Component {
     render() {
         let items = null;
         let renderDots = null;
-        
+        let backgroundImg = null;
+
         items = (
-            <div>
+            <div className="w-75">
                 {this.state.cards.map((item, index) => {
                     // return only the item that has its index === slideIndex
                     if (index === this.state.slideIndex ) {
+                        backgroundImg = item.url;
+                       
                         return (
                             <CardItem 
                                 name={item.name} 
                                 key={item.id} 
-                                bgImg={item.url}
+                                category={item.category}
+                                cardId={item.id}
                             />
                         );
                     }
                 })}
+
+                <Arrows 
+                    moveSliderRight={() => this.handleClickRightArrow()}
+                    moveSliderLeft={() => this.handleClickLeftArrow()}
+                />
             </div>
         );
+                
+        const bgImg = {
+            backgroundImage: `url(${backgroundImg})`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+        }
 
         renderDots = (
-            <div>
+            <div className="dots-wrapper">
                 {this.state.cards.map((item, index) => {
                     return (
                         <Dots 
@@ -121,18 +140,24 @@ class App extends Component {
                 })}
             </div>
         );
-
+                
         return (
-            <div className="container-fluid React-Carousel">
-                <div className="row">
-                    <div className="col-lg-12 px-0">
-                        {items}
-                        {renderDots}
-                    
-                        <Arrows 
-                            moveSliderRight={() => this.handleClickRightArrow()}
-                            moveSliderLeft={() => this.handleClickLeftArrow()}
-                        />
+            <div className="carousel-wrapper position-relative">
+                <div className="container-fluid h-100 React-Carousel" style={bgImg}>
+                    <div className="container h-100">
+                    <div className="row h-100 align-items-around">
+                        <div className="col-lg-12 d-flex justify-content-center flex-column">
+                            {items}
+
+                            
+                            
+                            <div className="dots-holder">
+                                <span id="line1"></span>
+                                {renderDots}
+                                <span id="line2"></span>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>
