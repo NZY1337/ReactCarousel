@@ -1,0 +1,95 @@
+.my-masonry-grid {
+    display: -webkit-box; /* Not needed if autoprefixing */
+    display: -ms-flexbox; /* Not needed if autoprefixing */
+    display: flex;
+    margin-left: -30px; /* gutter size offset */
+    width: auto;
+}
+
+.my-masonry-grid_column {
+        padding-left: 30px; /* gutter size */
+        background-clip: padding-box;
+}
+    
+  /* Style your items */
+.my-masonry-grid_column > div { /* change div to reference your elements you put in <Masonry> */
+    background: none;
+    margin-bottom: 30px;
+}
+  
+.masonry-wrapper{
+    .masonry-title {
+        color:red;
+    }
+}
+  
+@media (max-width: 800px) {
+    .my-masonry-grid {
+        margin-left: -15px; /* gutter size offset */
+    }
+
+    .my-masonry-grid_column {
+        padding-left: 15px; /* gutter size offset */
+    }
+
+    .my-masonry-grid_column > div {
+        margin-bottom: 15px; /* space between items */
+    }
+}
+
+
+h3 {
+    font-family: 'Muli', sans-serif;
+    font-style: italic;
+}
+
+//   mansonry items
+.masonry-item-overlay {
+    position:relative;
+    &-bg {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width:90%;
+        height:90%;
+        position:absolute;
+        background-color:rgba(0,0,0, .3);
+
+        &:hover .plus-mini {
+            width:30px;
+            height:30px;
+        }
+
+        &:hover .plus {
+            width:10px;
+            height:10px;
+            z-index: 1;
+        }
+
+        .plus {
+            transition: all .2s;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius:50%;
+            background-color:rgba(white, .7);
+            width:30px;
+            height:30px;
+
+            
+        }
+
+        .plus-mini {
+            transition: all .2s;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius:50%;
+            background-color:rgba(red, .7);
+            width:10px;
+            height:10px;
+        }
+    }
+}

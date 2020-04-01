@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import './MainCarousel.css';
+import './MainCarousel.scss';
 import CardItem from "../CardItems/CardItem";
 import Dots from "../CarouselDots/Dots";
 import 'bootstrap/dist/css/bootstrap.min.css';
