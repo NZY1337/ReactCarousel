@@ -38,6 +38,7 @@ class Categories extends Component {
                             <img src={item.img} alt="" className="img-fluid"/>
                             <div className="masonry-item-overlay-bg d-flex align-items-center justify-content-center">
                                 <div className="plus"></div>
+                                <h6 className="show-more">Show More</h6>
                                 <span className="plus-mini"></span>
                             </div>
                         </div>

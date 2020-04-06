@@ -38,7 +38,7 @@
 }
 
 
-h3 {
+h6 {
     font-family: 'Muli', sans-serif;
     font-style: italic;
 }
@@ -58,16 +58,29 @@ h3 {
         &:hover .plus-mini {
             width:30px;
             height:30px;
+            left: 80%;
         }
 
         &:hover .plus {
             width:10px;
             height:10px;
             z-index: 1;
+            left: 80%;
+        }
+        
+        &:hover #view-more {
+            opacity:1
+        }
+
+        #view-more {
+            z-index: 111;
+            color:lightgray;
+            opacity:0;
+            transition: .3s;
         }
 
         .plus {
-            transition: all .2s;
+            transition: all .2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
             position: absolute;
             top: 50%;
             left: 50%;
@@ -76,10 +89,8 @@ h3 {
             background-color:rgba(white, .7);
             width:30px;
             height:30px;
-
-            
         }
-
+        
         .plus-mini {
             transition: all .2s;
             position: absolute;
