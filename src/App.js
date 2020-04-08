@@ -1,26 +1,13 @@
 import React, { Component } from "react";
-import Carousel from './components/Carousel/MainCarousel/MainCarousel';
-import Categories from './components/MasonryCategories/Categories';
+import Navigation from './components/Navigation/Navigation'
 
 
-class App extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-
-        }
-    }
-   
-    render() {
-        
-        return (
-            <div className="carousel-wrapper position-relative">
-                <Carousel />
-                <Categories />
-            </div>
-        );
-    }
+function App () {
+    return (
+        <div>
+            < Navigation />
+        </div>
+    )
+    
 }
-
 export default App;

@@ -151,13 +151,15 @@ class Carousel extends Component {
                 })}
             </div>
         );
-        
+                
         return (
             <div className="carousel-wrapper position-relative">
                 <div className="container-fluid h-100 React-Carousel" style={bgImg}>
                     <div className="container h-100">
                     <div className="row h-100 align-items-around">
+
                         <div className="col-lg-12 d-flex justify-content-center flex-column">
+
 
                             {/* outputing all the items informations */}
                             {items}
