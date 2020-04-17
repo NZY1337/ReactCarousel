@@ -1,0 +1,14 @@
+@import '../../assets/scss/animations/animate-categories.scss';
+
+.menu {
+    position: absolute;
+    top:2rem;
+    left:0;
+    z-index: 1;
+}
+
+.menu .navbar-nav a {
+    color:white;
+    font-family: 'Muli', sans-serif;
+    font-style: italic;
+}

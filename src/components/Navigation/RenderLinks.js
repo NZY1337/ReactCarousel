@@ -7,6 +7,8 @@ import Nav from 'react-bootstrap/Nav';
 import logo from '../../assets/images/beadesignful-logo.png';
 import { Link } from 'react-router-dom';
 
+import './menu.scss'
+
 class RenderLinks extends Component {
     constructor(props) {
         super(props);
@@ -47,60 +49,65 @@ class RenderLinks extends Component {
 
             ]
         }
-
+        
         this.handleToggleCategories = this.handleToggleCategories.bind(this);
     }
 
     handleToggleCategories(){
-        const asd = this.state.toggleCateg;
+        const toggleMenuCategory = this.state.toggleCateg;
 
         this.setState({
-            toggleCateg: !asd
+            toggleCateg: !toggleMenuCategory
         })
     }
     
     render () {
-        console.log(this.props)
-        if (this.state.toggleCateg) {
-            console.log('lol')
-        } else {
-            console.log('not')
-        }
+        const classNameCat = this.state.toggleCateg ? 'v-shown' : 'v-hidden';
         
+
         return (
-            <div className="container-fluid bg-dark text-white">
+            <div className="container-fluid menu">
                 <div className="container">
-                <div className="row">
-                    <div className="col-lg-12">
-                        <Navbar collapseOnSelect expand="lg"  variant="dark">
-                            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                    <div className="row">
+                        <div className="col-lg-12">
+                            <Navbar collapseOnSelect className="px-0" expand="lg"  variant="dark">
+                                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
-                            <Navbar.Collapse id="responsive-navbar-nav">
-                                <Nav className="mr-auto">
-                                    {
-                                        this.state.links.map((item, index) => {
-                                            return (
-                                                <h5 key={index} className="mb-0 mr-5">
-                                                    <Link  to={item.path}> {item.name.toUpperCase()}</Link>
-                                                </h5>
-                                            )
-                                        })
-                                    }
-                                    
-                                </Nav>
+                                <Navbar.Collapse id="responsive-navbar-nav">
+                                    <Nav className="mr-auto">
+                                        {
+                                            this.state.links.map((item, index) => {
+                                                return (
+                                                    <Link key={index} className="mb-0 mr-5" to={item.path}> {item.name.toUpperCase()}</Link>
+                                                )
+                                            })
+                                        }
+                                    </Nav>
 
-                                <Nav>
-                                    <Nav.Link href="#deets">More deets</Nav.Link>
-                                    <Nav.Link eventKey={2} onClick={this.handleToggleCategories} href="#memes">
-                                        x
-                                    </Nav.Link>
-                                </Nav>
+                                    <Nav>
+                                        <Nav.Link className="px-0" eventKey={2} onClick={this.handleToggleCategories} href="#memes">
+                                            x
+                                        </Nav.Link>
+                                    </Nav>
 
-                            </Navbar.Collapse>
-                        </Navbar>
+                                </Navbar.Collapse>
+                            </Navbar>
+                        </div>
+
+                        <div className="col-lg-12">
+                            <div className={`text-white text-right ${classNameCat}`}>
+                                <h6>House</h6>
+                                <h6>Club / Bar</h6>
+                                <h6>World</h6>
+                                <h6>Business Office</h6>
+                                <h6>Hotel / Resport</h6>
+                                <h6>Shopping Mall</h6>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-                </div>
+              
             </div>
         )
     }

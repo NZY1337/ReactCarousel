@@ -99,7 +99,7 @@ class Carousel extends Component {
         let items = null;
         let renderDots = null;
         let backgroundImg = null;
-
+        
         items = (
             <div className="w-75">
                 {this.state.cards.map((item, index) => {
@@ -116,8 +116,6 @@ class Carousel extends Component {
                                     category={item.category}
                                     cardId={item.id}
                                 />
-
-                                
                             </div>
                         );
                     }
@@ -158,8 +156,7 @@ class Carousel extends Component {
                     <div className="container h-100">
                     <div className="row h-100 align-items-around">
 
-                        <div className="col-lg-12 d-flex justify-content-center flex-column">
-
+                        <div className="col-lg-12 d-flex flex-column" style={{justifyContent: 'space-evenly'}}>
 
                             {/* outputing all the items informations */}
                             {items}

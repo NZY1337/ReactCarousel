@@ -1,0 +1,26 @@
+$delay: 0.03s;
+
+.v-hidden h6 {
+    visibility: hidden;
+}
+
+.v-shown h6 {
+    visibility: visible;
+}
+
+@for $i from 1 through 6 {
+    .v-hidden h6:nth-child(#{$i}) {
+      transition-delay: $delay * $i;
+      visibility: hidden;
+    }
+}
+
+@for $i from 1 through 6 {
+    .v-shown h6:nth-child(#{$i}) {
+      transition-delay: $delay * $i;
+      visibility: visible;
+    }
+}
+
+
+
