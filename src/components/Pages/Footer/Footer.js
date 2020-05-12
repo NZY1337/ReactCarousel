@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './footer.scss';
-import logo from '../../assets/images/beadesignful-logo.png';
+import logo from '../../../assets/images/beadesignful-logo.png';
 
 export default function Footer() {
     const footerNav = {
@@ -41,7 +41,7 @@ export default function Footer() {
             link: ''
         }
     ]
-
+    
     return (
         <div>
             <footer className="py-5">

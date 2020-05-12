@@ -10,4 +10,4 @@ function InteriorDesign() {
     )
 }
 
-export default InteriorDesign
+export default InteriorDesign;

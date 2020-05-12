@@ -1,0 +1,44 @@
+
+.categ-wrapper {
+    display: flex;
+    align-items: center;
+    cursor:pointer;
+}
+
+.item-categ {
+    &_details {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        bottom:0px;
+        background:rgba(black, .4);
+        color:white;
+        padding:20px;
+        transition:0.500s all ease-in;
+        
+        &:hover {
+            background:rgba(black, .8);
+        }
+    }
+
+    height: 700px;
+    width: calc(100% / 4);
+    position: relative;
+    transition: all 300ms ease-in-out;
+
+    &:hover {
+        width: calc((100% / 4) + 50px);
+    }
+
+    img {
+        max-width:100%;
+        height:100%;
+        object-fit:cover;
+    }  
+}  
+  

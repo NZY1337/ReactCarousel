@@ -5,10 +5,19 @@
     top:2rem;
     left:0;
     z-index: 1;
+
+    .navbar-nav a {
+        opacity:.5;
+    }
+
+    .navbar-nav a:hover {
+        text-decoration: none;
+        opacity:1;
+    }
 }
+
 
 .menu .navbar-nav a {
     color:white;
-    font-family: 'Muli', sans-serif;
-    font-style: italic;
+    font-family: 'Montserrat';
 }

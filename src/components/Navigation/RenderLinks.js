@@ -1,11 +1,12 @@
 import React , { Component } from 'react';
-import About from '../About/About';
-import Contact from '../Contact/Contact';
-import InteriorDesign from '../InteriorDesign/InteriorDesign';
+import About from '../Pages/About/About';
+import Contact from '../Pages/Contact/Contact';
+import InteriorDesign from '../Pages/InteriorDesign/InteriorDesign';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import logo from '../../assets/images/beadesignful-logo.png';
 import { Link } from 'react-router-dom';
+import '../../../src/assets/scss/animations/burger-menu.scss';
 
 import './menu.scss'
 
@@ -63,7 +64,6 @@ class RenderLinks extends Component {
     
     render () {
         const classNameCat = this.state.toggleCateg ? 'v-shown' : 'v-hidden';
-        
 
         return (
             <div className="container-fluid menu">
@@ -85,8 +85,13 @@ class RenderLinks extends Component {
                                     </Nav>
 
                                     <Nav>
-                                        <Nav.Link className="px-0" eventKey={2} onClick={this.handleToggleCategories} href="#memes">
-                                            x
+                                        <Nav.Link className="px-0" eventKey={2}  href="#memes">
+                                            <wrapper onClick={this.handleToggleCategories}>
+                                                <input type="checkbox" />
+                                                <bun>
+                                                    <burger></burger>
+                                                </bun>
+                                            </wrapper>
                                         </Nav.Link>
                                     </Nav>
 
@@ -96,12 +101,12 @@ class RenderLinks extends Component {
 
                         <div className="col-lg-12">
                             <div className={`text-white text-right ${classNameCat}`}>
-                                <h6>House</h6>
-                                <h6>Club / Bar</h6>
-                                <h6>World</h6>
-                                <h6>Business Office</h6>
-                                <h6>Hotel / Resport</h6>
-                                <h6>Shopping Mall</h6>
+                                <h6 className='a-c1'>House span</h6>
+                                <h6 className='a-c2'>Club / Bar</h6>
+                                <h6 className='a-c3'>World</h6>
+                                <h6 className='a-c4'>Business Office</h6>
+                                <h6 className='a-c5'>Hotel / Resport</h6>
+                                <h6 className='a-c6'>Shopping Mall</h6>
                             </div>
                         </div>
 

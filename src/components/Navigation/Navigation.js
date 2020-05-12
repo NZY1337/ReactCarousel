@@ -1,9 +1,9 @@
 import React , { Component } from 'react';
-import About from '../About/About';
-import Blog from '../Blog/Blog';
-import Contact from '../Contact/Contact';
-import InteriorDesign from '../InteriorDesign/InteriorDesign';
-import Portfolio from '../Portfolio/Portfolio';
+import About from '../Pages/About/About';
+import Blog from '../Pages/Blog/Blog';
+import Contact from '../Pages/Contact/Contact';
+import InteriorDesign from '../Pages/InteriorDesign/InteriorDesign';
+import Portfolio from '../Pages/Portfolio/Portfolio';
 import Home from '../Home/Home'
 import RenderLinks from './RenderLinks'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';

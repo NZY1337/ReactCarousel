@@ -1,4 +1,22 @@
 $delay: 0.03s;
+// colors
+
+$colors: (c1: darkslateblue, c2: mediumorchid, c3: seagreen, c4:steelblue, c5:red, c6: lightgray );
+
+// @each $name, $color in $colors {
+//   .a-#{$name} {
+//     color: $color;
+//   }
+// }
+
+h6 {
+    opacity:.5;
+    text-transform: uppercase;
+    cursor: pointer;
+    &:hover {
+        opacity:1;
+    }
+}
 
 .v-hidden h6 {
     visibility: hidden;
@@ -7,6 +25,7 @@ $delay: 0.03s;
 .v-shown h6 {
     visibility: visible;
 }
+
 
 @for $i from 1 through 6 {
     .v-hidden h6:nth-child(#{$i}) {

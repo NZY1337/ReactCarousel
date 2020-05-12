@@ -19,7 +19,7 @@ class Carousel extends Component {
         cards: [
             {
                 id: 0,
-                url:"https://images.pexels.com/photos/1090638/pexels-photo-1090638.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+                url:"https://images.pexels.com/photos/312029/pexels-photo-312029.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
                 name: "Winter Is Comming",
                 shown: true,
                 category: 'interior'
