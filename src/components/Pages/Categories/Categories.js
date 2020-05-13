@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import './categories.scss';
-
+import RenderCategories from './RenderCategories';
 
 class Categories extends Component {
     constructor(props) {
         super(props)
-
+             
         this.state = {
             items : [
                 {
@@ -38,27 +37,23 @@ class Categories extends Component {
                     description: "Healthcare designers use the evidence-based design process in designing and renovating healthcare centers, clinics, doctors' offices, hospitals...",
                     categ: 'futuristic'
                 },
-                
             ]
         }
     }
-        
+    
     render() {
         const items = this.state.items.map(item => {
             return (
-                <div alt="{item.name}" href="" className="item-categ">
-                    <img alt="" src={item.img}/>
-
-                    <div className="item-categ_details">
-                        <h1 className="item-categ_name mb-3">{item.name}</h1>
-                        <p>{item.description}</p>
-                    </div>
-                </div>
+                < RenderCategories 
+                    name={item.name}
+                    img={item.img}
+                    description={item.description}
+                />
             )
         });
-
+            
         return (
-            <div className="w-100 categ-wrapper my-5">
+            <div className="w-100 categ-wrapper">
                 {items}
             </div>
         )

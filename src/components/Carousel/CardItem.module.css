@@ -1,10 +1,6 @@
 
 .isActive {
-    border-bottom-color: white!important;
-}
-
-.isActive:after {
-    border-top-color: white!important;
+    background:red!important;
 }
 
 .imgSize {
@@ -14,25 +10,15 @@
 }
 
 .dots {
-    width: 0;
-    height: 0;
-    border: 7px solid transparent;
-    border-bottom-color: black;
-    position: relative;
-    top: -7px;
+    width: 10px;
+    height: 10px;
+    
+    background:white;
     cursor:pointer;
 }
 
-.dots:after {
-    content: '';
-    position: absolute;
-    left: -7px;
-    top: 7px;
-    width: 0;
-    height: 0;
-    border: 7px solid transparent;
-    border-top-color: black;
+.dots:not(:last-child) {
+    margin-right:20px;
 }
-
 
 

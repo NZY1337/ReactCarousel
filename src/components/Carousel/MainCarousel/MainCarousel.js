@@ -3,7 +3,7 @@ import './MainCarousel.scss';
 import CardItem from "../CardItems/CardItem";
 import Dots from "../CarouselDots/Dots";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Arrows from '../CarouselArrows/Arrows';
+// import Arrows from '../CarouselArrows/Arrows';
 import FirstLetter from "../CarouselDots/DisplayFirstLetter";
 
 
@@ -77,7 +77,7 @@ class Carousel extends Component {
     
     handleClickLeftArrow () {
         const itemsLength = this.state.cards.length;
-
+        
         this.setState({
             slideIndex : this.state.slideIndex -= 1
         })
@@ -99,15 +99,16 @@ class Carousel extends Component {
         let items = null;
         let renderDots = null;
         let backgroundImg = null;
-        
+        let categItem = '';
+
         items = (
             <div className="w-75">
                 {this.state.cards.map((item, index) => {
-
+                    
                     // return only the item that has the index === slideIndex
                     if (index === this.state.slideIndex ) {
                         backgroundImg = item.url;
-                        
+                        categItem = item.category;
                         return (
                             <div>
                                 <CardItem 
@@ -121,10 +122,10 @@ class Carousel extends Component {
                     }
                 })}
 
-                <Arrows 
+                {/* <Arrows 
                     moveSliderRight={() => this.handleClickRightArrow()}
                     moveSliderLeft={() => this.handleClickLeftArrow()}
-                />
+                /> */}
             </div>
         );
 
@@ -137,16 +138,20 @@ class Carousel extends Component {
         
         renderDots = (
             <div className="dots-wrapper">
-                {this.state.cards.map((item, index) => {
-                    return (
-                        <Dots 
-                            isDotActive={index === this.state.slideIndex ? true : false}      
-                            clickDots={() => this.handleClickDots(index)}
-                            key={item.id}
-                            letter
-                        />
-                    );
-                })}
+                <h3 class="text-center">{categItem}</h3>
+                
+                <div class="d-flex justify-content-center">
+                    {this.state.cards.map((item, index) => {
+                        return (
+                            <Dots 
+                                isDotActive={index === this.state.slideIndex ? true : false}      
+                                clickDots={() => this.handleClickDots(index)}
+                                key={item.id}
+                                letter
+                            />
+                        );
+                    })}
+                </div>
             </div>
         );
                 
@@ -154,30 +159,17 @@ class Carousel extends Component {
             <div className="carousel-wrapper position-relative">
                 <div className="container-fluid h-100 React-Carousel" style={bgImg}>
                     <div className="container h-100">
-                    <div className="row h-100 align-items-around">
+                        <div className="row h-100  align-items-center">
 
-                        <div className="col-lg-12 d-flex flex-column" style={{justifyContent: 'space-evenly'}}>
+                            <div className="col-lg-12" style={{justifyContent: 'space-evenly'}}>
+                                {items}
+                            </div>
 
-                            {/* outputing all the items informations */}
-                            {items}
-                            
-                            <div className="dots-holder">
-
-                                {this.state.cards.map((item, index) => {
-                                    
-                                    if (index === this.state.slideIndex ) { 
-                                        return (
-                                            <h3 id="firstTitleLetter">{this.getFirstLetter(item)}</h3>
-                                        )
-                                    }
-                                })}
+                            <div>
                                 
-                                <span id="line1"></span>
                                 {renderDots}
-                                <span id="line2"></span>
                             </div>
                         </div>
-                    </div>
                     </div>
                 </div>
             </div>
