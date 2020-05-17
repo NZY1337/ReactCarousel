@@ -7,7 +7,7 @@ const CardItem = props => {
     const imgStyle = [styles.imgSize, 'img-fluid'];
         
     return (
-        <div class="carousel-info pl-3">
+        <div className="carousel-info pl-3">
             <h3 className="carousel-id">0.{props.cardId + 1}</h3>
 
             <h1 className="text-white mb-2">{props.name}</h1>

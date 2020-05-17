@@ -73,13 +73,16 @@ class Carousel extends Component {
     };
    
     componentDidMount() {
-        this.setSpacer()
+        this.setSpacer();
     }
 
+    componentDidUpdate() {
+        this.setSpacer();
+    }
+    
     getFirstLetter(item) {
         return item.name.split('').splice(0,1)
     }
-
 
     handleClickRightArrow () {
         this.setState({
@@ -93,7 +96,7 @@ class Carousel extends Component {
         }
     }
     
-    handleClickLeftArrow () {
+    handleClickLeftArrow (itemLen) {
         const itemsLength = this.state.cards.length;
         
         this.setState({
@@ -116,23 +119,22 @@ class Carousel extends Component {
     setSpacer() {
         const hr = document.querySelector('#spacer');
         const dotsWrapper = document.querySelector('.dots-wrapper');
-        const dotsWrapperWidth = dotsWrapper.offsetWidth;
+        const dotsWrapperWidth = ((this.state.cards.length-this.state.slideIndex) * 12) + (20 * (this.state.cards.length - this.state.slideIndex)) -20;
         const asd = document.querySelector('#asd');
-        
+            
         hr.style.width =  `${dotsWrapperWidth - 6}px`;
-        asd.style.width =  `${dotsWrapperWidth}px`;
-    }
+    }   
 
     render() {
         let items = null;
         let renderDots = null;
         let backgroundImg = null;
         let categItem = '';
-
+        
         items = (
             <div className="w-75">
                 {this.state.cards.map((item, index) => {
-                    
+
                     // return only the item that has the index === slideIndex
                     if (index === this.state.slideIndex ) {
                         backgroundImg = item.url;
@@ -141,7 +143,7 @@ class Carousel extends Component {
                             <div>
                                 <CardItem 
                                     name={item.name} 
-                                    key={item.id} 
+                                    key={index + 'b'} 
                                     category={item.category}
                                     cardId={item.id}
                                 />
@@ -168,14 +170,14 @@ class Carousel extends Component {
             <div className="dots-holder">
                 <h3 class="text-center mb-0">{categItem}</h3>
                     <div id="asd" class="mx-auto">
-                        <hr class="my-0" id="spacer"/>
+                        <div class="my-0" id="spacer"></div>
                         <div class="d-flex justify-content-center dots-wrapper asd">
                             {this.state.cards.map((item, index) => {
                                 return (
                                     <Dots 
                                         isDotActive={index === this.state.slideIndex ? true : false}      
                                         clickDots={() => this.handleClickDots(index)}
-                                        key={item.id}
+                                        key={index + 'a'}
                                         letter
                                     />
                                 );
@@ -184,7 +186,9 @@ class Carousel extends Component {
                     </div>
             </div>
         );
-                 
+
+       
+        
         return (
             <div className="carousel-wrapper position-relative">
                 <div className="container-fluid h-100 React-Carousel" style={bgImg}>
@@ -196,7 +200,6 @@ class Carousel extends Component {
                             </div>
 
                             <div>
-                                
                                 {renderDots}
                             </div>
                         </div>
