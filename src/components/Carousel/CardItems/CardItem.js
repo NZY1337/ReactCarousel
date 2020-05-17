@@ -19,7 +19,7 @@ const CardItem = props => {
                 Maiores necessitatibus officia excepturi commodi recusandae nulla iure non quia.
             </p>
 
-            <p className="text-white carousel-category">{props.category}</p>
+            {/* <p className="text-white carousel-category">{props.category}</p> */}
         </div>
     );
 };

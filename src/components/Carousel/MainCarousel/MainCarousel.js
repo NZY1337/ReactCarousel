@@ -4,7 +4,7 @@ import CardItem from "../CardItems/CardItem";
 import Dots from "../CarouselDots/Dots";
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import Arrows from '../CarouselArrows/Arrows';
-import FirstLetter from "../CarouselDots/DisplayFirstLetter";
+// import FirstLetter from "../CarouselDots/DisplayFirstLetter";
 
 
 class Carousel extends Component {
@@ -50,12 +50,30 @@ class Carousel extends Component {
                 name: "Look At Me Now",
                 shown: false,
                 category: 'abstract'
+            },
+
+            {
+                id: 2,
+                url:
+                "https://images.pexels.com/photos/271795/pexels-photo-271795.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+                name: "A Day To Remember",
+                shown: false,
+                category: 'minimalistic'
+            },
+
+            {
+                id: 3,
+                url:
+                "https://images.pexels.com/photos/106936/pexels-photo-106936.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+                name: "Look At Me Now",
+                shown: false,
+                category: 'abstract'
             }
         ]
     };
    
     componentDidMount() {
-       
+        this.setSpacer()
     }
 
     getFirstLetter(item) {
@@ -67,7 +85,7 @@ class Carousel extends Component {
         this.setState({
             slideIndex : this.state.slideIndex += 1
         })
-            
+
         if (this.state.slideIndex > 3) {
             this.setState({
                 slideIndex : 0
@@ -95,6 +113,16 @@ class Carousel extends Component {
         })
     };    
     
+    setSpacer() {
+        const hr = document.querySelector('#spacer');
+        const dotsWrapper = document.querySelector('.dots-wrapper');
+        const dotsWrapperWidth = dotsWrapper.offsetWidth;
+        const asd = document.querySelector('#asd');
+        
+        hr.style.width =  `${dotsWrapperWidth - 6}px`;
+        asd.style.width =  `${dotsWrapperWidth}px`;
+    }
+
     render() {
         let items = null;
         let renderDots = null;
@@ -137,29 +165,31 @@ class Carousel extends Component {
         }
         
         renderDots = (
-            <div className="dots-wrapper">
-                <h3 class="text-center">{categItem}</h3>
-                
-                <div class="d-flex justify-content-center">
-                    {this.state.cards.map((item, index) => {
-                        return (
-                            <Dots 
-                                isDotActive={index === this.state.slideIndex ? true : false}      
-                                clickDots={() => this.handleClickDots(index)}
-                                key={item.id}
-                                letter
-                            />
-                        );
-                    })}
-                </div>
+            <div className="dots-holder">
+                <h3 class="text-center mb-0">{categItem}</h3>
+                    <div id="asd" class="mx-auto">
+                        <hr class="my-0" id="spacer"/>
+                        <div class="d-flex justify-content-center dots-wrapper asd">
+                            {this.state.cards.map((item, index) => {
+                                return (
+                                    <Dots 
+                                        isDotActive={index === this.state.slideIndex ? true : false}      
+                                        clickDots={() => this.handleClickDots(index)}
+                                        key={item.id}
+                                        letter
+                                    />
+                                );
+                            })}
+                        </div>
+                    </div>
             </div>
         );
-                
+                 
         return (
             <div className="carousel-wrapper position-relative">
                 <div className="container-fluid h-100 React-Carousel" style={bgImg}>
                     <div className="container h-100">
-                        <div className="row h-100  align-items-center">
+                        <div className="row h-100 align-items-center">
 
                             <div className="col-lg-12" style={{justifyContent: 'space-evenly'}}>
                                 {items}

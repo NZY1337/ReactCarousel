@@ -48,15 +48,14 @@
     left:0px;
 }
 
-.dots-holder {
-    position: absolute;
-    right: 0%;
-    top: 50%;
-    transform: translate(-50%,-50%);
+.dots-wrapper {
+    width:min-content;
+    margin:0 auto;
+    /* border-top:2px solid white; */
+    padding-top:10px;
 }
 
-.dots-wrapper {
-    position: relative;
+.dots-holder {
     position: absolute;
     bottom: 5%;
     left: 0;
@@ -65,18 +64,11 @@
     width:200px;
 }
 
-
-
-#line1, #line2 {
-    width:1px;
-    height:90px;
+#spacer {
+    height:.1px;
     background:white;
-    display: block;
-    margin-left:50%;
-    position: relative;
+    margin-right:0;
 }
-
-
 
 
 
