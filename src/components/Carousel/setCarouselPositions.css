@@ -65,10 +65,20 @@
 
 #spacer {
     height:10px;
+    background:none;
+    
+}
+
+.spacer-style1 {
     border-top:1px solid white;
     border-left:1px solid white;
-    background:none;
     margin-left:auto;
+}
+
+.spacer-style2 {
+    border-top:1px solid white;
+    border-right:1px solid white;
+    margin-right:auto;
 }
 
 
