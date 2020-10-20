@@ -5,7 +5,7 @@ import Dots from "../CarouselDots/Dots";
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import Arrows from '../CarouselArrows/Arrows';
 // import FirstLetter from "../CarouselDots/DisplayFirstLetter";
-
+import Header from '../../Navigation/Header';
 
 class Carousel extends Component {
     constructor(props) {
@@ -229,7 +229,7 @@ class Carousel extends Component {
                             <div className="col-lg-12" style={{justifyContent: 'space-evenly'}}>
                                 {items}
                             </div>
-
+                    
                             <div>
                                 {renderDots}
                             </div>
