@@ -125,11 +125,24 @@ class Carousel extends Component {
     handleClickDots = (index) => {
         this.setState({
             slideIndex: index
-        })
+        });
     };    
     
+    auto = () => {
+        this.setState(prevState =>{
+            return{
+                 ...prevState,
+                 slideIndex : prevState.slideIndex >= this.state.cards.length - 1 ? 0 : prevState.slideIndex + 1
+            }
+         })
+    }
+
     componentDidMount() {
         this.setSpacer();
+
+        setInterval(()=> {
+            this.auto()
+        }, 3000)
     }
 
     componentDidUpdate() {

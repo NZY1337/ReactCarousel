@@ -3,6 +3,7 @@ import About from '../Pages/About/About';
 import Contact from '../Pages/Contact/Contact';
 import InteriorDesign from '../Pages/InteriorDesign/InteriorDesign';
 import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import Nav from 'react-bootstrap/Nav';
 import logo from '../../assets/images/beadesignful-logo.png';
 import { Link } from 'react-router-dom';
@@ -46,7 +47,18 @@ class RenderLinks extends Component {
                 {
                     name: 'Contact',
                     path: '/contact',
-                }
+                },
+                
+                {
+                    name: 'Admin',
+                    path: '#',
+                    submenu: {
+                        carousel: {
+                            name:'Carousel',
+                            path: '/carousel'
+                        }
+                    }
+                },
 
             ]
         }
@@ -61,10 +73,11 @@ class RenderLinks extends Component {
             toggleCateg: !toggleMenuCategory
         })
     }
-    
+
     render () {
         const classNameCat = this.state.toggleCateg ? 'v-shown' : 'v-hidden';
-        
+
+
         return (
             <div className="container-fluid menu">
                 <div className="container">
@@ -78,7 +91,22 @@ class RenderLinks extends Component {
                                         {
                                             this.state.links.map((item, index) => {
                                                 return (
-                                                    <Link key={index} className="mb-0 mr-5 font-weight-bold" to={item.path}> {item.name.toUpperCase()}</Link>
+                                                    <>
+                                                    {
+                                                        item.name == 'Admin' ? (
+                                                            <NavDropdown title="ADMIN" className="mr-5 font-weight-bold" id="nav-dropdown">
+                                                                <NavDropdown.Item eventKey="4.2">Another action</NavDropdown.Item>
+                                                                <NavDropdown.Item eventKey="4.3">Something else here</NavDropdown.Item>
+                                                                <NavDropdown.Divider />
+                                                                <NavDropdown.Item eventKey="4.4">Separated link</NavDropdown.Item>
+                                                            </NavDropdown>
+                                                        ) : (
+                                                            <Link key={index} className="mb-0 mr-5 font-weight-bold nav-link" to={item.path}>
+                                                                {item.name.toUpperCase()}
+                                                            </Link>
+                                                        )
+                                                    }
+                                                    </>
                                                 )
                                             })
                                         }
