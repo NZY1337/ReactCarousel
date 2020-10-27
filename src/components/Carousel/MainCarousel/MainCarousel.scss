@@ -1,66 +1,67 @@
 .React-Carousel h1 {
-   font-family: 'Montserrat'; 
-   font-size: 5rem!important;
- }
- 
- .React-Carousel p {
-    font-family: 'Open Sans', sans-serif;
- }
- 
- .React-Carousel h2 {
-     color:lightgray;
- }
- 
- .React-Carousel h3 {
-    color:lightgray;
- }
- 
- .React-Carousel h3#firstTitleLetter {
-    color:white;
- }
- 
- .arrow-left {
-    box-sizing: border-box;
-    height: 1.3vw;
-    width: 1.3vw;
-    border-style: solid;
-    border-color: white;
-    border-width: 0px 1px 1px 0px;
-    transform: rotate(135deg);
-    transition: border-width 150ms ease-in-out;
- }
- 
- .arrow-right {
-    box-sizing: border-box;
-    height: 1.3vw;
-    width: 1.3vw;
-    border-style: solid;
-    border-color: white;
-    border-width: 0px 1px 1px 0px;
-    transform: rotate(315deg);
-    transition: border-width 150ms ease-in-out;
- }
- 
- .arrows-wrapper {
-    display:flex;
-    width: 75px;
-    justify-content:space-between
- }
- 
- .arrow-right:hover, .arrow-left:hover {
-    border-bottom-width: 4px;
-    border-right-width: 4px;
-    cursor:pointer;
- }
- 
- #firstTitleLetter {
-    position: absolute;
-    top:50%;
-    left:-20px;
-    transform: translate(-50%, -50%);
-    content:''
- }
- 
- .menu {
-    position: absolute;
- }
+	font-family: "Montserrat";
+	font-size: 5rem !important;
+}
+
+.React-Carousel p {
+	font-family: "Open Sans", sans-serif;
+}
+
+.React-Carousel h2 {
+	color: lightgray;
+}
+
+.React-Carousel h3 {
+	color: lightgray;
+}
+
+.React-Carousel h3#firstTitleLetter {
+	color: white;
+}
+
+.arrow-left {
+	box-sizing: border-box;
+	height: 1.3vw;
+	width: 1.3vw;
+	border-style: solid;
+	border-color: white;
+	border-width: 0px 1px 1px 0px;
+	transform: rotate(135deg);
+	transition: border-width 150ms ease-in-out;
+}
+
+.arrow-right {
+	box-sizing: border-box;
+	height: 1.3vw;
+	width: 1.3vw;
+	border-style: solid;
+	border-color: white;
+	border-width: 0px 1px 1px 0px;
+	transform: rotate(315deg);
+	transition: border-width 150ms ease-in-out;
+}
+
+.arrows-wrapper {
+	display: flex;
+	width: 75px;
+	justify-content: space-between;
+}
+
+.arrow-right:hover,
+.arrow-left:hover {
+	border-bottom-width: 4px;
+	border-right-width: 4px;
+	cursor: pointer;
+}
+
+#firstTitleLetter {
+	position: absolute;
+	top: 50%;
+	left: -20px;
+	transform: translate(-50%, -50%);
+	content: "";
+}
+
+.menu {
+	position: absolute;
+}

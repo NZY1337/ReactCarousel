@@ -1,23 +1,22 @@
-@import '../../assets/scss/animations/animate-categories.scss';
+@import "../../assets/scss/animations/animate-categories.scss";
 
 .menu {
-    position: absolute;
-    top:2rem;
-    left:0;
-    z-index: 1;
+	position: absolute;
+	top: 2rem;
+	left: 0;
+	z-index: 1;
 
-    .navbar-nav a {
-        opacity:.5;
-    }
+	.navbar-nav a {
+		opacity: 0.5;
+	}
 
-    .navbar-nav a:hover {
-        text-decoration: none;
-        opacity:1;
-    }
+	.navbar-nav a:hover {
+		text-decoration: none;
+		opacity: 1;
+	}
 }
 
-
 .menu .navbar-nav a:not(.dropdown-item) {
-    color:white;
-    font-family: 'Montserrat';
+	color: white;
+	font-family: "Montserrat";
 }

@@ -91,11 +91,9 @@ class RenderLinks extends Component {
 												<>
 													{item.name == "Admin" ? (
 														<NavDropdown title='ADMIN' className='mr-5 font-weight-bold' id='nav-dropdown'>
-															<NavDropdown.Item eventKey='4.2'>Another action</NavDropdown.Item>
-															<NavDropdown.Item eventKey='4.3'>Something else here</NavDropdown.Item>
-															<NavDropdown.Divider />
-
-															<NavDropdown.Item eventKey='4.4'>Separated link</NavDropdown.Item>
+															<Link key={index} className='mb-0 mr-5 font-weight-bold dropdown-item' to={item.submenu.carousel.path}>
+																{item.submenu.carousel.name.toUpperCase()}
+															</Link>
 														</NavDropdown>
 													) : (
 														<Link key={index} className='mb-0 mr-5 font-weight-bold nav-link' to={item.path}>
