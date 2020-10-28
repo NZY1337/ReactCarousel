@@ -15,22 +15,33 @@ import AdminLogin from "./admin/components/Login";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+// REDUX
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
+import rootReducer from "./redux/reducers";
+
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+
 ReactDOM.render(
-	<Router>
-		<>
-			<Header />
-			<Switch>
-				<Route path='/' exact component={Home} />
-				<Route path='/Portfolio' exact component={Portfolio} />
-				<Route path='/blog' exact component={Blog} />
-				<Route path='/about' exact component={About} />
-				<Route path='/interior-design' exact component={InteriorDesign} />
-				<Route path='/contact' exact component={Contact} />
-				<Route path='/carousel' exact component={AdminCarousel} />
-				<Route path='/login' exact component={AdminLogin} />
-			</Switch>
-		</>
-	</Router>,
+	<Provider store={store}>
+		<Router>
+			<>
+				<Header />
+				<Switch>
+					<Route path='/' exact component={Home} />
+					<Route path='/Portfolio' exact component={Portfolio} />
+					<Route path='/blog' exact component={Blog} />
+					<Route path='/about' exact component={About} />
+					<Route path='/interior-design' exact component={InteriorDesign} />
+					<Route path='/contact' exact component={Contact} />
+					<Route path='/carousel' exact component={AdminCarousel} />
+					<Route path='/login' exact component={AdminLogin} />
+				</Switch>
+			</>
+		</Router>
+	</Provider>,
 	document.getElementById("root"),
 );
 

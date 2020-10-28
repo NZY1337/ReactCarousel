@@ -8,7 +8,8 @@ import Nav from "react-bootstrap/Nav";
 import logo from "../../assets/images/beadesignful-logo.png";
 import { Link } from "react-router-dom";
 import "../../../src/assets/scss/animations/burger-menu.scss";
-
+import { getUser } from "../../redux/actions/userAction";
+import { connect } from "react-redux";
 import "./menu.scss";
 
 class RenderLinks extends Component {
@@ -22,36 +23,43 @@ class RenderLinks extends Component {
 				{
 					name: "Home",
 					path: "/",
+					id: "home",
 				},
 
 				{
 					name: "Interior Design",
 					path: "/interior-design",
+					id: "interior-design",
 				},
 
 				{
 					name: "Portofolio",
 					path: "/portfolio",
+					id: "portfolio",
 				},
 
 				{
 					name: "Blog",
 					path: "/blog",
+					id: "blog",
 				},
 
 				{
 					name: "About",
 					path: "/about",
+					id: "about",
 				},
 
 				{
 					name: "Contact",
 					path: "/contact",
+					id: "contact",
 				},
 
 				{
 					name: "Admin",
 					path: "#",
+					id: "admin",
 					submenu: {
 						carousel: {
 							name: "Carousel",
@@ -65,6 +73,10 @@ class RenderLinks extends Component {
 		this.handleToggleCategories = this.handleToggleCategories.bind(this);
 	}
 
+	componentDidMount() {
+		this.props.getUser();
+	}
+
 	handleToggleCategories() {
 		const toggleMenuCategory = this.state.toggleCateg;
 
@@ -75,6 +87,7 @@ class RenderLinks extends Component {
 
 	render() {
 		const classNameCat = this.state.toggleCateg ? "v-shown" : "v-hidden";
+		let showAdmin = this.props.user !== null ? "d-block" : "d-none";
 
 		return (
 			<div className='container-fluid menu'>
@@ -90,13 +103,16 @@ class RenderLinks extends Component {
 											return (
 												<>
 													{item.name == "Admin" ? (
-														<NavDropdown title='ADMIN' className='mr-5 font-weight-bold' id='nav-dropdown'>
-															<Link key={index} className='mb-0 mr-5 font-weight-bold dropdown-item' to={item.submenu.carousel.path}>
+														<NavDropdown title='ADMIN' className={`mr-5 font-weight-bold ${showAdmin}`} id='nav-dropdown'>
+															<Link
+																key={index}
+																className='mb-0 mr-5 font-weight-bold dropdown-item'
+																to={item.submenu.carousel.path}>
 																{item.submenu.carousel.name.toUpperCase()}
 															</Link>
 														</NavDropdown>
 													) : (
-														<Link key={index} className='mb-0 mr-5 font-weight-bold nav-link' to={item.path}>
+														<Link id={item.id} key={index} className='mb-0 mr-5 font-weight-bold nav-link' to={item.path}>
 															{item.name.toUpperCase()}
 														</Link>
 													)}
@@ -136,4 +152,10 @@ class RenderLinks extends Component {
 	}
 }
 
-export default RenderLinks;
+function mapStateToProps(state, ownProps) {
+	return {
+		user: state.user,
+	};
+}
+
+export default connect(mapStateToProps, { getUser })(RenderLinks);

@@ -1,5 +1,9 @@
-import React from "react";
+import React, { Component } from "react";
 import styled from "styled-components";
+
+import { connect } from "react-redux";
+import { googleLogin } from "../../redux/actions/userAction";
+import { getUser, logOut } from "../../redux/actions/userAction";
 
 const Button = styled.button`
 	border: 4px solid white;
@@ -25,26 +29,47 @@ const Button = styled.button`
 	}
 `;
 
-function Login() {
-	const bg = "https://images.pexels.com/photos/5422695/pexels-photo-5422695.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260";
-	let sectionStyle = {
-		width: "100%",
-		height: "100vh",
-		backgroundImage: `url(${bg})`,
-		backgroundSize: "cover",
-		backgroundRepeat: "no-repeat",
-	};
+const bg = "https://images.pexels.com/photos/5422695/pexels-photo-5422695.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260";
+let sectionStyle = {
+	width: "100%",
+	height: "100vh",
+	backgroundImage: `url(${bg})`,
+	backgroundSize: "cover",
+	backgroundRepeat: "no-repeat",
+};
 
-	return (
-		<div className='container-fluid' style={sectionStyle}>
-			<div className='row h-100 align-items-center'>
-				<div className='col-lg-12 h-100 d-flex align-items-center justify-content-center'>
-					{/* <Button style={btnRzv}>Login With Google</Button> */}
-					<Button>Login With Google</Button>
+class Login extends Component {
+	componentDidMount() {
+		this.props.getUser();
+	}
+
+	render() {
+		return (
+			<div className='container-fluid' style={sectionStyle}>
+				<div className='row h-100 align-items-center'>
+					<div className='col-lg-12 h-100 d-flex flex-column align-items-center justify-content-center'>
+						{this.props.user === null ? (
+							<Button onClick={this.props.googleLogin}>Login With Google</Button>
+						) : (
+							<>
+								<h1 className='mb-5 text-white' style={{ fontSize: "70px" }}>
+									Hello, {this.props.user.displayName}
+								</h1>
+								<Button onClick={() => this.props.logOut()}>Log Out</Button>
+							</>
+						)}
+					</div>
 				</div>
 			</div>
-		</div>
-	);
+		);
+	}
 }
 
-export default Login;
+// get the values from combined reducers (reducers/index)
+function mapStateToProps(state, ownProps) {
+	return {
+		user: state.user,
+	};
+}
+
+export default connect(mapStateToProps, { googleLogin, getUser, logOut })(Login);
