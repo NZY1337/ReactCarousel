@@ -49,17 +49,20 @@ class AdminBlog extends Component {
 		});
 	};
 
+	onSubmit = (e) => {
+		e.preventDefault();
+	};
+
 	render() {
 		return (
 			<Container className='container-fluid'>
 				<div className='container h-100'>
 					<div className='row h-100 justify-content-center'>
-						<div className='col-lg-6 h-100 d-flex flex-column  justify-content-center'>
-							<Form className='w-100'>
+						<div className='col-lg-10 h-100 d-flex flex-column  justify-content-center'>
+							<Form className='w-100' onSubmit={this.onSubmit}>
 								<Form.Group controlId='formBasicEmail'>
 									<Form.Label>Blog Title</Form.Label>
 									<Form.Control type='text' placeholder='blog title' />
-									<Form.Text className='text-muted'>We'll never share your email with anyone else.</Form.Text>
 								</Form.Group>
 
 								<Form.Group controlId='formBasicPassword'>
@@ -72,12 +75,12 @@ class AdminBlog extends Component {
 									<DatePicker className='form-control' selected={this.state.date} onChange={(date) => this.setStartDate(date)} />
 								</Form.Group>
 
-								<Button variant='danger' type='submit'>
+								<TextEditor />
+
+								<Button className='mt-3' variant='danger' type='submit'>
 									Submit
 								</Button>
 							</Form>
-
-							<TextEditor />
 						</div>
 					</div>
 				</div>

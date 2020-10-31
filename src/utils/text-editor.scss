@@ -1,0 +1,21 @@
+.strikethrough {
+	text-decoration: line-through;
+}
+
+.DraftEditor-root {
+	background: #fff;
+	border: 1px solid #ddd;
+	font-family: "Georgia", serif;
+	font-size: 14px;
+	padding: 15px;
+	color: black;
+}
+
+.public-DraftEditor-content {
+	min-height: 100px;
+}
+
+.DraftEditor-editorContainer {
+	cursor: text;
+	font-size: 16px;
+}
