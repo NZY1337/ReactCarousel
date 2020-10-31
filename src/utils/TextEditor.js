@@ -5,6 +5,7 @@ import "draft-js/dist/Draft.css";
 import "./text-editor.scss";
 import createHighlightPlugin from "./plugins/highlightPlugin";
 import addLinkPlugin from "./plugins/addLinkPlugin";
+import BlockStyleToolbar, { getBlockStyle } from "./components/blockstyles/BlockStyleToolbar";
 
 const highlightPlugin = createHighlightPlugin();
 
@@ -19,6 +20,10 @@ class TextEditor extends React.Component {
 	}
 
 	onChange = (editorState) => this.setState({ editorState });
+
+	toggleBlockType = (blockType) => {
+		this.onChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
+	};
 
 	onStrikeThroughClick = () => {
 		this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, "STRIKETHROUGH"));
@@ -68,7 +73,9 @@ class TextEditor extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<div className='editor'>
+				<BlockStyleToolbar editorState={this.state.editorState} onToggle={this.toggleBlockType} />
+
 				<button className='strikethrough' onClick={this.onStrikeThroughClick}>
 					abc
 				</button>
@@ -88,12 +95,12 @@ class TextEditor extends React.Component {
 				</button>
 
 				<button id='link_url' onClick={this.onAddLink} className='add-link'>
-					<i className='material-icons'>attach_file</i>
+					<i className='material-icons'>Insert URL</i>
 				</button>
 
 				<div className='mt-3'>
 					<Editor
-						contenteditable='true'
+						blockStyleFn={getBlockStyle}
 						plugins={this.plugins}
 						editorState={this.state.editorState}
 						handleKeyCommand={this.handleKeyCommand}
