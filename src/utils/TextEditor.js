@@ -4,6 +4,7 @@ import Editor from "draft-js-plugins-editor";
 import "draft-js/dist/Draft.css";
 import "./text-editor.scss";
 import createHighlightPlugin from "./plugins/highlightPlugin";
+import addLinkPlugin from "./plugins/addLinkPlugin";
 
 const highlightPlugin = createHighlightPlugin();
 
@@ -14,7 +15,7 @@ class TextEditor extends React.Component {
 
 		this.handleKeyCommand = this.handleKeyCommand.bind(this);
 
-		this.plugins = [highlightPlugin];
+		this.plugins = [highlightPlugin, addLinkPlugin];
 	}
 
 	onChange = (editorState) => this.setState({ editorState });
@@ -37,6 +38,21 @@ class TextEditor extends React.Component {
 
 	onHighlight = () => {
 		this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, "HIGHLIGHT"));
+	};
+
+	onAddLink = () => {
+		const editorState = this.state.editorState;
+		const selection = editorState.getSelection();
+		const link = window.prompt("Paste the link -");
+		if (!link) {
+			this.onChange(RichUtils.toggleLink(editorState, selection, null));
+			return "handled";
+		}
+		const content = editorState.getCurrentContent();
+		const contentWithEntity = content.createEntity("LINK", "MUTABLE", { url: link });
+		const newEditorState = EditorState.push(editorState, contentWithEntity, "create-entity");
+		const entityKey = contentWithEntity.getLastCreatedEntityKey();
+		this.onChange(RichUtils.toggleLink(newEditorState, selection, entityKey));
 	};
 
 	handleKeyCommand(command, editorState) {
@@ -66,12 +82,18 @@ class TextEditor extends React.Component {
 				<button onClick={this._onBoldClick}>
 					<b>B</b>
 				</button>
+
 				<button onClick={this.onItalicClick}>
 					<em>I</em>
 				</button>
 
+				<button id='link_url' onClick={this.onAddLink} className='add-link'>
+					<i className='material-icons'>attach_file</i>
+				</button>
+
 				<div className='mt-3'>
 					<Editor
+						contenteditable='true'
 						plugins={this.plugins}
 						editorState={this.state.editorState}
 						handleKeyCommand={this.handleKeyCommand}
