@@ -11,6 +11,7 @@ import Portfolio from "./components/Pages/Portfolio/Portfolio";
 import Home from "./components/Home/Home";
 import Header from "./components/Navigation/Header";
 import AdminCarousel from "./admin/components/AdminCarousel";
+import AdminBlog from "./admin/components/AdminBlog";
 import AdminLogin from "./admin/components/Login";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -36,7 +37,8 @@ ReactDOM.render(
 					<Route path='/about' exact component={About} />
 					<Route path='/interior-design' exact component={InteriorDesign} />
 					<Route path='/contact' exact component={Contact} />
-					<Route path='/carousel' exact component={AdminCarousel} />
+					<Route path='/admin-carousel' exact component={AdminCarousel} />
+					<Route path='/admin-blog' exact component={AdminBlog} />
 					<Route path='/login' exact component={AdminLogin} />
 				</Switch>
 			</>

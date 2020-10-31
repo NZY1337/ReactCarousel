@@ -63,7 +63,11 @@ class RenderLinks extends Component {
 					submenu: {
 						carousel: {
 							name: "Carousel",
-							path: "/carousel",
+							path: "/admin-carousel",
+						},
+						blog: {
+							name: "Blog",
+							path: "/admin-blog",
 						},
 					},
 				},
@@ -109,6 +113,13 @@ class RenderLinks extends Component {
 																className='mb-0 mr-5 font-weight-bold dropdown-item'
 																to={item.submenu.carousel.path}>
 																{item.submenu.carousel.name.toUpperCase()}
+															</Link>
+
+															<Link
+																key={index}
+																className='mb-0 mr-5 font-weight-bold dropdown-item'
+																to={item.submenu.blog.path}>
+																{item.submenu.blog.name.toUpperCase()}
 															</Link>
 														</NavDropdown>
 													) : (
