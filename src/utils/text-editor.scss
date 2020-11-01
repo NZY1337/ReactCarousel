@@ -3,16 +3,24 @@
 }
 
 .DraftEditor-root {
-	background: #fff;
+	box-sizing: border-box;
 	border: 1px solid #ddd;
-	font-family: "Georgia", serif;
-	font-size: 14px;
-	padding: 15px;
-	color: black;
+
+	cursor: text;
+	padding: 16px;
+	border-radius: 2px;
+	margin-bottom: 2em;
+	box-shadow: inset 0px 1px 8px -3px #ababab;
+	background: #fefefe;
+}
+
+.options {
+	margin-bottom: 20px;
 }
 
 .public-DraftEditor-content {
-	min-height: 200px;
+	min-height: 700px;
+	height: 100%;
 }
 
 .DraftEditor-editorContainer {
@@ -20,11 +28,11 @@
 	font-size: 16px;
 }
 
-button:not(btn-danger),
-select {
-	background: white;
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
+// button:not(btn-danger),
+// select {
+// 	background: white;
+// 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+// }
 
 .styleButton#bold {
 	font-weight: bold;
@@ -81,11 +89,13 @@ select {
 }
 
 .styleButton,
+select,
 .RichEditor-styleButton,
-button {
+button:not(.btn-danger) {
+	height: 100%;
 	padding: 0.5em;
 	background-image: linear-gradient(to bottom, #fdfbfb 0%, #ebedee 100%);
-	border: none;
+	border: 1px solid #ccc;
 	margin: 0.35em;
 	width: auto;
 	padding: 0 rem;

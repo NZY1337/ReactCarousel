@@ -1,22 +1,33 @@
 import React, { Component } from "react";
 import { EditorState, RichUtils, AtomicBlockUtils } from "draft-js";
-import Editor from "draft-js-plugins-editor";
+
+import ImageAdd from "./ImageAdd";
+
+import Editor, { composeDecorators } from "draft-js-plugins-editor";
 import "draft-js/dist/Draft.css";
 import "./text-editor.scss";
 import createHighlightPlugin from "./plugins/highlightPlugin";
 
 import BlockStyleToolbar, { getBlockStyle } from "./components/blockstyles/BlockStyleToolbar";
-import { mediaBlockRenderer } from "./components/entities/mediaBlockRenderer";
 
 // uploading img & alignment
 import createImagePlugin from "draft-js-image-plugin";
 import createAlignmentPlugin from "draft-js-alignment-plugin";
+import createFocusPlugin from "draft-js-focus-plugin";
+import createResizeablePlugin from "draft-js-resizeable-plugin";
 
 // plugins
 import addLinkPlugin from "./plugins/addLinkPlugin";
-const imagePlugin = createImagePlugin();
+
 const highlightPlugin = createHighlightPlugin();
 const alignmentPlugin = createAlignmentPlugin();
+const focusPlugin = createFocusPlugin();
+const resizeablePlugin = createResizeablePlugin();
+const { AlignmentTool } = alignmentPlugin;
+
+const decorator = composeDecorators(resizeablePlugin.decorator, alignmentPlugin.decorator, focusPlugin.decorator);
+
+const imagePlugin = createImagePlugin({ decorator });
 
 class TextEditor extends React.Component {
 	constructor(props) {
@@ -25,7 +36,7 @@ class TextEditor extends React.Component {
 
 		this.handleKeyCommand = this.handleKeyCommand.bind(this);
 
-		this.plugins = [highlightPlugin, addLinkPlugin, imagePlugin, alignmentPlugin];
+		this.plugins = [highlightPlugin, addLinkPlugin, imagePlugin, alignmentPlugin, resizeablePlugin, focusPlugin];
 	}
 
 	handleClick = (e) => {
@@ -86,7 +97,9 @@ class TextEditor extends React.Component {
 		this.onChange(RichUtils.toggleLink(newEditorState, selection, entityKey));
 	};
 
-	focus = () => this.refs.editor.focus();
+	focus = () => {
+		this.editor.focus();
+	};
 
 	onAddImage = (e) => {
 		e.preventDefault();
@@ -148,24 +161,24 @@ class TextEditor extends React.Component {
 					<i className='material-icons'>Insert URL</i>
 				</button>
 
-				<button className='inline styleButton' onClick={this.onAddImage}>
-					<i>Add image URL</i>
-				</button>
+				<ImageAdd editorState={this.state.editorState} onChange={this.onChange} modifier={imagePlugin.addImage} />
 
 				<button>
 					<input onChange={this.handleClick} type='file' />
 				</button>
 
-				<div className='mt-3 editors'>
+				<div onClick={this.focus} className='mt-3 editors'>
 					<Editor
-						ref='editor'
+						ref={(element) => {
+							this.editor = element;
+						}}
 						blockStyleFn={getBlockStyle}
-						blockRendererFn={mediaBlockRenderer}
 						plugins={this.plugins}
 						editorState={this.state.editorState}
 						handleKeyCommand={this.handleKeyCommand}
 						onChange={this.onChange}
 					/>
+					<AlignmentTool />
 				</div>
 			</div>
 		);

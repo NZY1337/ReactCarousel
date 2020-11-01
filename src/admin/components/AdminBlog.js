@@ -55,7 +55,7 @@ class AdminBlog extends Component {
 
 	render() {
 		return (
-			<Container className='container-fluid'>
+			<div className='container-fluid my-5'>
 				<div className='container h-100'>
 					<div className='row h-100 justify-content-center'>
 						<div className='col-lg-10 h-100 d-flex flex-column  justify-content-center'>
@@ -79,7 +79,7 @@ class AdminBlog extends Component {
 						</div>
 					</div>
 				</div>
-			</Container>
+			</div>
 		);
 	}
 }
