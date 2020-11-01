@@ -65,13 +65,8 @@ class AdminBlog extends Component {
 									<Form.Control type='text' placeholder='blog title' />
 								</Form.Group>
 
-								<Form.Group controlId='formBasicPassword'>
-									<Form.Label>Blog Content</Form.Label>
-									<Form.Control type='text' placeholder='Password' />
-								</Form.Group>
-
 								<Form.Group>
-									<Form.Label>Blog Content</Form.Label>
+									<Form.Label>Select Date</Form.Label>
 									<DatePicker className='form-control' selected={this.state.date} onChange={(date) => this.setStartDate(date)} />
 								</Form.Group>
 

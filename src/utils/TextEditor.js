@@ -1,13 +1,22 @@
 import React, { Component } from "react";
-import { EditorState, RichUtils } from "draft-js";
+import { EditorState, RichUtils, AtomicBlockUtils } from "draft-js";
 import Editor from "draft-js-plugins-editor";
 import "draft-js/dist/Draft.css";
 import "./text-editor.scss";
 import createHighlightPlugin from "./plugins/highlightPlugin";
-import addLinkPlugin from "./plugins/addLinkPlugin";
-import BlockStyleToolbar, { getBlockStyle } from "./components/blockstyles/BlockStyleToolbar";
 
+import BlockStyleToolbar, { getBlockStyle } from "./components/blockstyles/BlockStyleToolbar";
+import { mediaBlockRenderer } from "./components/entities/mediaBlockRenderer";
+
+// uploading img & alignment
+import createImagePlugin from "draft-js-image-plugin";
+import createAlignmentPlugin from "draft-js-alignment-plugin";
+
+// plugins
+import addLinkPlugin from "./plugins/addLinkPlugin";
+const imagePlugin = createImagePlugin();
 const highlightPlugin = createHighlightPlugin();
+const alignmentPlugin = createAlignmentPlugin();
 
 class TextEditor extends React.Component {
 	constructor(props) {
@@ -16,8 +25,24 @@ class TextEditor extends React.Component {
 
 		this.handleKeyCommand = this.handleKeyCommand.bind(this);
 
-		this.plugins = [highlightPlugin, addLinkPlugin];
+		this.plugins = [highlightPlugin, addLinkPlugin, imagePlugin, alignmentPlugin];
 	}
+
+	handleClick = (e) => {
+		const imgPath = URL.createObjectURL(e.target.files[0]);
+		const newEditorState = this.insertImage(this.state.editorState, imgPath);
+		this.onChange(newEditorState);
+	};
+
+	insertImage = (editorState, imgPath) => {
+		const contentState = editorState.getCurrentContent();
+		const contentStateWithEntity = contentState.createEntity("image", "IMMUTABLE", { src: imgPath });
+		const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+		const newEditorState = EditorState.set(editorState, {
+			currentContent: contentStateWithEntity,
+		});
+		return AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, " ");
+	};
 
 	onChange = (editorState) => this.setState({ editorState });
 
@@ -53,12 +78,37 @@ class TextEditor extends React.Component {
 			this.onChange(RichUtils.toggleLink(editorState, selection, null));
 			return "handled";
 		}
+
 		const content = editorState.getCurrentContent();
 		const contentWithEntity = content.createEntity("LINK", "MUTABLE", { url: link });
 		const newEditorState = EditorState.push(editorState, contentWithEntity, "create-entity");
 		const entityKey = contentWithEntity.getLastCreatedEntityKey();
 		this.onChange(RichUtils.toggleLink(newEditorState, selection, entityKey));
 	};
+
+	focus = () => this.refs.editor.focus();
+
+	onAddImage = (e) => {
+		e.preventDefault();
+		const editorState = this.state.editorState;
+		const urlValue = window.prompt("Paste Image Link");
+		const contentState = editorState.getCurrentContent();
+
+		const contentStateWithEntity = contentState.createEntity("image", "IMMUTABLE", { src: urlValue });
+		const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+
+		const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity }, "create-entity");
+		this.setState(
+			{
+				editorState: AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, " "),
+			},
+			() => {
+				setTimeout(() => this.focus(), 0);
+			},
+		);
+	};
+
+	// onURLChange = (e) => this.setState({ urlValue: e.target.value });
 
 	handleKeyCommand(command, editorState) {
 		const newState = RichUtils.handleKeyCommand(editorState, command);
@@ -98,9 +148,19 @@ class TextEditor extends React.Component {
 					<i className='material-icons'>Insert URL</i>
 				</button>
 
-				<div className='mt-3'>
+				<button className='inline styleButton' onClick={this.onAddImage}>
+					<i>Add image URL</i>
+				</button>
+
+				<button>
+					<input onChange={this.handleClick} type='file' />
+				</button>
+
+				<div className='mt-3 editors'>
 					<Editor
+						ref='editor'
 						blockStyleFn={getBlockStyle}
+						blockRendererFn={mediaBlockRenderer}
 						plugins={this.plugins}
 						editorState={this.state.editorState}
 						handleKeyCommand={this.handleKeyCommand}

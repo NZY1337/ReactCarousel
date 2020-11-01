@@ -45,7 +45,41 @@ select {
 	padding: 0.5em;
 }
 
-select,
+button,
+select {
+	background: white;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.styleButton#bold {
+	font-weight: bold;
+}
+
+.styleButton#italic {
+	font-style: italic;
+	font-family: serif;
+}
+
+.styleButton#underline {
+	text-decoration: underline;
+}
+
+.toolbar {
+	text-align: center;
+	margin: 0.5em;
+	padding: 0.5em;
+}
+
+select {
+	padding: 0.5em;
+	border: none;
+	margin: 0.35em;
+	border-radius: 6px;
+	font-family: "Open Sans";
+	font-size: 13px;
+	height: 2.25em;
+}
+
 .styleButton,
 .RichEditor-styleButton,
 button {
@@ -53,12 +87,19 @@ button {
 	background-image: linear-gradient(to bottom, #fdfbfb 0%, #ebedee 100%);
 	border: none;
 	margin: 0.35em;
-	width: fit-content;
-	padding: 0.5rem 1rem;
+	width: auto;
+	padding: 0 rem;
 	color: black;
 	font-family: "Open Sans";
-	font-size: 13px;
+	font-size: 12px;
+	padding: 0.5rem 1rem;
 	border-radius: 4px;
+	transition: all 0.4s;
+
+	&:hover {
+		box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+		transform: translateY(-7px);
+	}
 }
 
 .RichEditor-activeButton {
