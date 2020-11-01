@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import styles from "./style.css";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faImage } from "@fortawesome/free-solid-svg-icons";
+
 export default class ImageAdd extends Component {
 	// Start the popover closed
 	state = {
@@ -21,7 +24,9 @@ export default class ImageAdd extends Component {
 	render() {
 		return (
 			<button className={styles.addImageConfirmButton} type='button' onClick={this.addImage}>
-				<i>Add Img Url</i>
+				<i>Add</i>
+				<FontAwesomeIcon className='mx-2' icon={faImage} size='lg' />
+				<i>URL</i>
 			</button>
 		);
 	}

@@ -58,7 +58,7 @@ class AdminBlog extends Component {
 			<div className='container-fluid my-5'>
 				<div className='container h-100'>
 					<div className='row h-100 justify-content-center'>
-						<div className='col-lg-10 h-100 d-flex flex-column  justify-content-center'>
+						<div className='col-lg-12 h-100 d-flex flex-column  justify-content-center'>
 							<Form className='w-100' onSubmit={this.onSubmit}>
 								<Form.Group controlId='formBasicEmail'>
 									<Form.Label>Blog Title</Form.Label>

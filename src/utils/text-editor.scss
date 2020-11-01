@@ -2,6 +2,18 @@
 	text-decoration: line-through;
 }
 
+blockquote.RichEditor-blockquote {
+	border-left: 5px solid black;
+	margin-right: 2rem;
+	padding: 1rem;
+	background: aliceblue;
+	font-style: italic;
+
+	div {
+		margin-left: 1rem;
+	}
+}
+
 .DraftEditor-root {
 	box-sizing: border-box;
 	border: 1px solid #ddd;
@@ -91,13 +103,14 @@ select {
 .styleButton,
 select,
 .RichEditor-styleButton,
-button:not(.btn-danger) {
+button:not(.btn-danger):not(.react-datepicker__navigation):not(.draftJsEmojiPlugin__button__qi1gf):not(.navbar-toggler) {
+	display: inline-block;
 	height: 100%;
 	padding: 0.5em;
+	width: auto;
 	background-image: linear-gradient(to bottom, #fdfbfb 0%, #ebedee 100%);
 	border: 1px solid #ccc;
 	margin: 0.35em;
-	width: auto;
 	padding: 0 rem;
 	color: black;
 	font-family: "Open Sans";
@@ -107,8 +120,9 @@ button:not(.btn-danger) {
 	transition: all 0.4s;
 
 	&:hover {
+		cursor: pointer;
 		box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
-		transform: translateY(-7px);
+		transform: translateY(-5px);
 	}
 }
 

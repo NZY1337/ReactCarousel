@@ -16,6 +16,8 @@ import createAlignmentPlugin from "draft-js-alignment-plugin";
 import createFocusPlugin from "draft-js-focus-plugin";
 import createResizeablePlugin from "draft-js-resizeable-plugin";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFileImage } from "@fortawesome/free-solid-svg-icons";
 // plugins
 import addLinkPlugin from "./plugins/addLinkPlugin";
 
@@ -163,9 +165,11 @@ class TextEditor extends React.Component {
 
 				<ImageAdd editorState={this.state.editorState} onChange={this.onChange} modifier={imagePlugin.addImage} />
 
-				<button>
-					<input onChange={this.handleClick} type='file' />
-				</button>
+				<label htmlFor='upload-img' className='mb-0 RichEditor-styleButton'>
+					<i>Upload</i>
+					<FontAwesomeIcon className='ml-2' icon={faFileImage} size='lg' />
+				</label>
+				<input id='upload-img' className='d-none' onChange={this.handleClick} type='file' />
 
 				<div onClick={this.focus} className='mt-3 editors'>
 					<Editor
