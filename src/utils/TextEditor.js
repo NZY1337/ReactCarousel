@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { EditorState, RichUtils, AtomicBlockUtils } from "draft-js";
 
-import ImageAdd from "./ImageAdd";
+import UploadImgUrl from "./ImageAdd";
 
 import Editor, { composeDecorators } from "draft-js-plugins-editor";
 import "draft-js/dist/Draft.css";
 import "./text-editor.scss";
 import createHighlightPlugin from "./plugins/highlightPlugin";
+import UploadImage from './plugins/uploadImage'
+
 
 import BlockStyleToolbar, { getBlockStyle } from "./components/blockstyles/BlockStyleToolbar";
 
@@ -31,6 +33,7 @@ const decorator = composeDecorators(resizeablePlugin.decorator, alignmentPlugin.
 
 const imagePlugin = createImagePlugin({ decorator });
 
+
 class TextEditor extends React.Component {
 	constructor(props) {
 		super(props);
@@ -41,11 +44,13 @@ class TextEditor extends React.Component {
 		this.plugins = [highlightPlugin, addLinkPlugin, imagePlugin, alignmentPlugin, resizeablePlugin, focusPlugin];
 	}
 
+
 	handleClick = (e) => {
 		const imgPath = URL.createObjectURL(e.target.files[0]);
 		const newEditorState = this.insertImage(this.state.editorState, imgPath);
 		this.onChange(newEditorState);
 	};
+
 
 	insertImage = (editorState, imgPath) => {
 		const contentState = editorState.getCurrentContent();
@@ -87,6 +92,7 @@ class TextEditor extends React.Component {
 		const editorState = this.state.editorState;
 		const selection = editorState.getSelection();
 		const link = window.prompt("Paste the link -");
+
 		if (!link) {
 			this.onChange(RichUtils.toggleLink(editorState, selection, null));
 			return "handled";
@@ -102,28 +108,6 @@ class TextEditor extends React.Component {
 	focus = () => {
 		this.editor.focus();
 	};
-
-	onAddImage = (e) => {
-		e.preventDefault();
-		const editorState = this.state.editorState;
-		const urlValue = window.prompt("Paste Image Link");
-		const contentState = editorState.getCurrentContent();
-
-		const contentStateWithEntity = contentState.createEntity("image", "IMMUTABLE", { src: urlValue });
-		const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
-
-		const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity }, "create-entity");
-		this.setState(
-			{
-				editorState: AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, " "),
-			},
-			() => {
-				setTimeout(() => this.focus(), 0);
-			},
-		);
-	};
-
-	// onURLChange = (e) => this.setState({ urlValue: e.target.value });
 
 	handleKeyCommand(command, editorState) {
 		const newState = RichUtils.handleKeyCommand(editorState, command);
@@ -163,13 +147,9 @@ class TextEditor extends React.Component {
 					<i className='material-icons'>Insert URL</i>
 				</button>
 
-				<ImageAdd editorState={this.state.editorState} onChange={this.onChange} modifier={imagePlugin.addImage} />
+				<UploadImgUrl editorState={this.state.editorState} onChange={this.onChange} modifier={imagePlugin.addImage} />
 
-				<label htmlFor='upload-img' className='mb-0 RichEditor-styleButton'>
-					<i>Upload</i>
-					<FontAwesomeIcon className='ml-2' icon={faFileImage} size='lg' />
-				</label>
-				<input id='upload-img' className='d-none' onChange={this.handleClick} type='file' />
+				<UploadImage handleChange={this.onChange} editorState={this.state.editorState}/>
 
 				<div onClick={this.focus} className='mt-3 editors'>
 					<Editor
