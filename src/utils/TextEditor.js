@@ -18,8 +18,6 @@ import createAlignmentPlugin from "draft-js-alignment-plugin";
 import createFocusPlugin from "draft-js-focus-plugin";
 import createResizeablePlugin from "draft-js-resizeable-plugin";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileImage } from "@fortawesome/free-solid-svg-icons";
 // plugins
 import addLinkPlugin from "./plugins/addLinkPlugin";
 
@@ -50,8 +48,8 @@ class TextEditor extends React.Component {
 		const newEditorState = this.insertImage(this.state.editorState, imgPath);
 		this.onChange(newEditorState);
 	};
-
-
+	
+	
 	insertImage = (editorState, imgPath) => {
 		const contentState = editorState.getCurrentContent();
 		const contentStateWithEntity = contentState.createEntity("image", "IMMUTABLE", { src: imgPath });

@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import FirstLetter from "../CarouselDots/DisplayFirstLetter";
 import Header from '../../Navigation/Header';
 
+
 class Carousel extends Component {
     constructor(props) {
         super(props);
@@ -90,8 +91,6 @@ class Carousel extends Component {
         ]
     };
    
-    
-    
     getFirstLetter(item) {
         return item.name.split('').splice(0,1)
     }

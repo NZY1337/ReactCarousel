@@ -13,6 +13,7 @@ import Header from "./components/Navigation/Header";
 import AdminCarousel from "./admin/components/AdminCarousel";
 import AdminBlog from "./admin/components/AdminBlog";
 import AdminLogin from "./admin/components/Login";
+import Footer from './components/Pages/Footer/Footer';
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -25,6 +26,7 @@ import rootReducer from "./redux/reducers";
 import "draft-js-focus-plugin/lib/plugin.css";
 import "draft-js-image-plugin/lib/plugin.css";
 import "draft-js-alignment-plugin/lib/plugin.css";
+
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
@@ -44,6 +46,7 @@ ReactDOM.render(
 					<Route path='/admin-blog' exact component={AdminBlog} />
 					<Route path='/login' exact component={AdminLogin} />
 				</Switch>
+				<Footer />
 			</>
 		</Router>
 	</Provider>,

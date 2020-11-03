@@ -92,7 +92,7 @@ class RenderLinks extends Component {
 	render() {
 		const classNameCat = this.state.toggleCateg ? "v-shown" : "v-hidden";
 		let showAdmin = this.props.user !== null ? "d-block" : "d-none";
-
+		
 		return (
 			<div className='container-fluid menu'>
 				<div className='container'>
