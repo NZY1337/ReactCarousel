@@ -48,7 +48,7 @@ class TextEditor extends React.Component {
 		const newEditorState = this.insertImage(this.state.editorState, imgPath);
 		this.onChange(newEditorState);
 	};
-	
+
 	
 	insertImage = (editorState, imgPath) => {
 		const contentState = editorState.getCurrentContent();
@@ -95,7 +95,7 @@ class TextEditor extends React.Component {
 			this.onChange(RichUtils.toggleLink(editorState, selection, null));
 			return "handled";
 		}
-
+		
 		const content = editorState.getCurrentContent();
 		const contentWithEntity = content.createEntity("LINK", "MUTABLE", { url: link });
 		const newEditorState = EditorState.push(editorState, contentWithEntity, "create-entity");

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Carousel from '../Carousel/MainCarousel/MainCarousel';
 import Categories from '../Pages/Categories/Categories';
-
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import {detectUserPage} from "../../redux/actions/userAction";
 
 class Home extends Component {
     constructor(props) {
@@ -11,9 +13,13 @@ class Home extends Component {
             
         }
     }
+
+    componentDidMount() {
+        this.props.detectUserPage(this.props.location)
+    }
     
     render() {
-        console.log(this.props.location)
+       
         return (
             <div>
                 < Carousel />
@@ -23,4 +29,9 @@ class Home extends Component {
     }
 }
 
-export default Home;
+
+  
+export default withRouter(
+    connect(null, { detectUserPage })(Home)
+)
+

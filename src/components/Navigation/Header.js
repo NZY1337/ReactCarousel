@@ -8,7 +8,7 @@ import Nav from "react-bootstrap/Nav";
 import logo from "../../assets/images/beadesignful-logo.png";
 import { Link } from "react-router-dom";
 import "../../../src/assets/scss/animations/burger-menu.scss";
-import { getUser } from "../../redux/actions/userAction";
+import { getUser, detectUserPage } from "../../redux/actions/userAction";
 import { connect } from "react-redux";
 import "./menu.scss";
 
@@ -79,6 +79,8 @@ class RenderLinks extends Component {
 
 	componentDidMount() {
 		this.props.getUser();
+
+		
 	}
 
 	handleToggleCategories() {
@@ -90,17 +92,24 @@ class RenderLinks extends Component {
 	}
 
 	render() {
+		let asd = '';
+
+		if (this.props.user.pathname == '/') {
+			asd = 'absolute';
+		} else {
+			asd = 'relative'
+		}
 		const classNameCat = this.state.toggleCateg ? "v-shown" : "v-hidden";
 		let showAdmin = this.props.user !== null ? "d-block" : "d-none";
-		
+
 		return (
-			<div className='container-fluid menu'>
+			<div className='container-fluid menu' style={{'position':asd}}>
 				<div className='container'>
 					<div className='row'>
 						<div className='col-lg-12'>
 							<Navbar collapseOnSelect className='px-0' expand='lg' variant='dark'>
 								<Navbar.Toggle aria-controls='responsive-navbar-nav' />
-
+								
 								<Navbar.Collapse id='responsive-navbar-nav'>
 									<Nav className='mr-auto'>
 										{this.state.links.map((item, index) => {
@@ -169,4 +178,4 @@ function mapStateToProps(state, ownProps) {
 	};
 }
 
-export default connect(mapStateToProps, { getUser })(RenderLinks);
+export default connect(mapStateToProps, { getUser, detectUserPage })(RenderLinks);
