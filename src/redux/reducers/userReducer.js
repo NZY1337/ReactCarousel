@@ -6,7 +6,8 @@ export default function (state = {}, action) {
 		case GET_USER:
 			return action.payload;
 		case GET_PAGE:
-			return action.payload;
+			// return action.payload;
+			return { ...state, url: action.payload };
 		default:
 			return state;
 	}

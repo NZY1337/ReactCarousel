@@ -79,8 +79,6 @@ class RenderLinks extends Component {
 
 	componentDidMount() {
 		this.props.getUser();
-
-		
 	}
 
 	handleToggleCategories() {
@@ -92,31 +90,35 @@ class RenderLinks extends Component {
 	}
 
 	render() {
-		let asd = '';
+		let asd = "";
 
-		if (this.props.user.pathname == '/') {
-			asd = 'absolute';
+		if (this.props.user == "/") {
+			asd = "absolute";
+			console.log("ok");
 		} else {
-			asd = 'relative'
+			asd = "relative";
 		}
 		const classNameCat = this.state.toggleCateg ? "v-shown" : "v-hidden";
 		let showAdmin = this.props.user !== null ? "d-block" : "d-none";
 
 		return (
-			<div className='container-fluid menu' style={{'position':asd}}>
+			<div className='container-fluid menu' style={{ position: asd }}>
 				<div className='container'>
 					<div className='row'>
 						<div className='col-lg-12'>
 							<Navbar collapseOnSelect className='px-0' expand='lg' variant='dark'>
 								<Navbar.Toggle aria-controls='responsive-navbar-nav' />
-								
+
 								<Navbar.Collapse id='responsive-navbar-nav'>
 									<Nav className='mr-auto'>
 										{this.state.links.map((item, index) => {
 											return (
 												<>
 													{item.name == "Admin" ? (
-														<NavDropdown title='ADMIN' className={`mr-5 font-weight-bold ${showAdmin}`} id='nav-dropdown'>
+														<NavDropdown
+															title='ADMIN'
+															className={`mr-5 font-weight-bold ${showAdmin}`}
+															id='nav-dropdown'>
 															<Link
 																key={index}
 																className='mb-0 mr-5 font-weight-bold dropdown-item'
@@ -132,7 +134,11 @@ class RenderLinks extends Component {
 															</Link>
 														</NavDropdown>
 													) : (
-														<Link id={item.id} key={index} className='mb-0 mr-5 font-weight-bold nav-link' to={item.path}>
+														<Link
+															id={item.id}
+															key={index}
+															className='mb-0 mr-5 font-weight-bold nav-link'
+															to={item.path}>
 															{item.name.toUpperCase()}
 														</Link>
 													)}
@@ -174,7 +180,7 @@ class RenderLinks extends Component {
 
 function mapStateToProps(state, ownProps) {
 	return {
-		user: state.user,
+		user: state.user.url,
 	};
 }
 

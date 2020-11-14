@@ -7,8 +7,7 @@ import Editor, { composeDecorators } from "draft-js-plugins-editor";
 import "draft-js/dist/Draft.css";
 import "./text-editor.scss";
 import createHighlightPlugin from "./plugins/highlightPlugin";
-import UploadImage from './plugins/uploadImage'
-
+import UploadImage from "./plugins/uploadImage";
 
 import BlockStyleToolbar, { getBlockStyle } from "./components/blockstyles/BlockStyleToolbar";
 
@@ -27,10 +26,13 @@ const focusPlugin = createFocusPlugin();
 const resizeablePlugin = createResizeablePlugin();
 const { AlignmentTool } = alignmentPlugin;
 
-const decorator = composeDecorators(resizeablePlugin.decorator, alignmentPlugin.decorator, focusPlugin.decorator);
+const decorator = composeDecorators(
+	resizeablePlugin.decorator,
+	alignmentPlugin.decorator,
+	focusPlugin.decorator,
+);
 
 const imagePlugin = createImagePlugin({ decorator });
-
 
 class TextEditor extends React.Component {
 	constructor(props) {
@@ -39,9 +41,15 @@ class TextEditor extends React.Component {
 
 		this.handleKeyCommand = this.handleKeyCommand.bind(this);
 
-		this.plugins = [highlightPlugin, addLinkPlugin, imagePlugin, alignmentPlugin, resizeablePlugin, focusPlugin];
+		this.plugins = [
+			highlightPlugin,
+			addLinkPlugin,
+			imagePlugin,
+			alignmentPlugin,
+			resizeablePlugin,
+			focusPlugin,
+		];
 	}
-
 
 	handleClick = (e) => {
 		const imgPath = URL.createObjectURL(e.target.files[0]);
@@ -49,10 +57,11 @@ class TextEditor extends React.Component {
 		this.onChange(newEditorState);
 	};
 
-	
 	insertImage = (editorState, imgPath) => {
 		const contentState = editorState.getCurrentContent();
-		const contentStateWithEntity = contentState.createEntity("image", "IMMUTABLE", { src: imgPath });
+		const contentStateWithEntity = contentState.createEntity("image", "IMMUTABLE", {
+			src: imgPath,
+		});
 		const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
 		const newEditorState = EditorState.set(editorState, {
 			currentContent: contentStateWithEntity,
@@ -95,7 +104,7 @@ class TextEditor extends React.Component {
 			this.onChange(RichUtils.toggleLink(editorState, selection, null));
 			return "handled";
 		}
-		
+
 		const content = editorState.getCurrentContent();
 		const contentWithEntity = content.createEntity("LINK", "MUTABLE", { url: link });
 		const newEditorState = EditorState.push(editorState, contentWithEntity, "create-entity");
@@ -121,7 +130,10 @@ class TextEditor extends React.Component {
 	render() {
 		return (
 			<div className='editor'>
-				<BlockStyleToolbar editorState={this.state.editorState} onToggle={this.toggleBlockType} />
+				<BlockStyleToolbar
+					editorState={this.state.editorState}
+					onToggle={this.toggleBlockType}
+				/>
 
 				<button className='strikethrough' onClick={this.onStrikeThroughClick}>
 					abc
@@ -145,9 +157,13 @@ class TextEditor extends React.Component {
 					<i className='material-icons'>Insert URL</i>
 				</button>
 
-				<UploadImgUrl editorState={this.state.editorState} onChange={this.onChange} modifier={imagePlugin.addImage} />
+				<UploadImgUrl
+					editorState={this.state.editorState}
+					onChange={this.onChange}
+					modifier={imagePlugin.addImage}
+				/>
 
-				<UploadImage handleChange={this.onChange} editorState={this.state.editorState}/>
+				<UploadImage handleChange={this.onChange} editorState={this.state.editorState} />
 
 				<div onClick={this.focus} className='mt-3 editors'>
 					<Editor
@@ -166,4 +182,5 @@ class TextEditor extends React.Component {
 		);
 	}
 }
+
 export default TextEditor;

@@ -55,6 +55,7 @@ class AdminBlog extends Component {
 
 	render() {
 		return (
+		
 			<div className='container-fluid my-5'>
 				<div className='container h-100'>
 					<div className='row h-100 justify-content-center'>
