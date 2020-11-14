@@ -11,8 +11,9 @@ import "../../../src/assets/scss/animations/burger-menu.scss";
 import { getUser } from "../../redux/actions/userAction";
 import { connect } from "react-redux";
 import "./menu.scss";
+import RenderLinks from "./RenderLinks";
 
-class RenderLinks extends Component {
+class Header extends Component {
 	constructor(props) {
 		super(props);
 
@@ -24,48 +25,97 @@ class RenderLinks extends Component {
 					name: "Home",
 					path: "/",
 					id: "home",
+					hasSubMenu: false,
+					submenu: [
+						{
+							name: "",
+							path: "",
+							id: "",
+						},
+					],
 				},
 
 				{
 					name: "Interior Design",
 					path: "/interior-design",
 					id: "interior-design",
+					hasSubMenu: false,
+					submenu: [
+						{
+							name: "",
+							path: "",
+							id: "",
+						},
+					],
 				},
 
 				{
 					name: "Portofolio",
 					path: "/portfolio",
 					id: "portfolio",
+					hasSubMenu: false,
+					submenu: [
+						{
+							name: "",
+							path: "",
+							id: "",
+						},
+					],
 				},
 
 				{
 					name: "Blog",
 					path: "/blog",
 					id: "blog",
+					hasSubMenu: false,
+					submenu: [
+						{
+							name: "",
+							path: "",
+							id: "",
+						},
+					],
 				},
 
 				{
 					name: "About",
 					path: "/about",
 					id: "about",
+					hasSubMenu: false,
+					submenu: [
+						{
+							name: "",
+							path: "",
+							id: "",
+						},
+					],
 				},
 
 				{
 					name: "Contact",
 					path: "/contact",
-					id: "contact",
+					hasSubMenu: true,
+					submenu: [
+						{
+							name: "Test",
+							path: "/test",
+							id: "test",
+						},
+					],
 				},
 
 				{
 					name: "Admin",
 					path: "#",
 					id: "admin",
-					submenu: {
-						carousel: {
-							name: "Carousel",
-							path: "/carousel",
+					hasSubMenu: true,
+					submenu: [
+						{
+							name: "Admin Carousel",
+							path: "/test",
+							id: "test",
 						},
-					},
+					],
 				},
 			],
 		};
@@ -102,20 +152,15 @@ class RenderLinks extends Component {
 										{this.state.links.map((item, index) => {
 											return (
 												<>
-													{item.name == "Admin" ? (
-														<NavDropdown title='ADMIN' className={`mr-5 font-weight-bold ${showAdmin}`} id='nav-dropdown'>
-															<Link
-																key={index}
-																className='mb-0 mr-5 font-weight-bold dropdown-item'
-																to={item.submenu.carousel.path}>
-																{item.submenu.carousel.name.toUpperCase()}
-															</Link>
-														</NavDropdown>
-													) : (
-														<Link id={item.id} key={index} className='mb-0 mr-5 font-weight-bold nav-link' to={item.path}>
-															{item.name.toUpperCase()}
-														</Link>
-													)}
+													<RenderLinks
+														index={index}
+														path={item.path}
+														name={item.name.toUpperCase()}
+														showAdmin={showAdmin}
+														subPath={item.submenu[0].path}
+														subName={item.submenu[0].name}
+														hasSubMenu={item.hasSubMenu}
+													/>
 												</>
 											);
 										})}
@@ -158,4 +203,4 @@ function mapStateToProps(state, ownProps) {
 	};
 }
 
-export default connect(mapStateToProps, { getUser })(RenderLinks);
+export default connect(mapStateToProps, { getUser })(Header);
