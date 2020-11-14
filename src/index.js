@@ -36,7 +36,7 @@ ReactDOM.render(
 					<Route path='/about' exact component={About} />
 					<Route path='/interior-design' exact component={InteriorDesign} />
 					<Route path='/contact' exact component={Contact} />
-					<Route path='/carousel' exact component={AdminCarousel} />
+					<Route path='/admin-carousel' exact component={AdminCarousel} />
 					<Route path='/login' exact component={AdminLogin} />
 				</Switch>
 			</>

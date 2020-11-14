@@ -26,13 +26,6 @@ class Header extends Component {
 					path: "/",
 					id: "home",
 					hasSubMenu: false,
-					submenu: [
-						{
-							name: "",
-							path: "",
-							id: "",
-						},
-					],
 				},
 
 				{
@@ -40,13 +33,6 @@ class Header extends Component {
 					path: "/interior-design",
 					id: "interior-design",
 					hasSubMenu: false,
-					submenu: [
-						{
-							name: "",
-							path: "",
-							id: "",
-						},
-					],
 				},
 
 				{
@@ -54,13 +40,6 @@ class Header extends Component {
 					path: "/portfolio",
 					id: "portfolio",
 					hasSubMenu: false,
-					submenu: [
-						{
-							name: "",
-							path: "",
-							id: "",
-						},
-					],
 				},
 
 				{
@@ -68,13 +47,6 @@ class Header extends Component {
 					path: "/blog",
 					id: "blog",
 					hasSubMenu: false,
-					submenu: [
-						{
-							name: "",
-							path: "",
-							id: "",
-						},
-					],
 				},
 
 				{
@@ -82,26 +54,12 @@ class Header extends Component {
 					path: "/about",
 					id: "about",
 					hasSubMenu: false,
-					submenu: [
-						{
-							name: "",
-							path: "",
-							id: "",
-						},
-					],
 				},
 
 				{
 					name: "Contact",
 					path: "/contact",
-					hasSubMenu: true,
-					submenu: [
-						{
-							name: "Test",
-							path: "/test",
-							id: "test",
-						},
-					],
+					hasSubMenu: false,
 				},
 
 				{
@@ -112,8 +70,7 @@ class Header extends Component {
 					submenu: [
 						{
 							name: "Admin Carousel",
-							path: "/test",
-							id: "test",
+							path: "/admin-carousel",
 						},
 					],
 				},
@@ -154,11 +111,11 @@ class Header extends Component {
 												<>
 													<RenderLinks
 														index={index}
+														sublinks={item.submenu}
 														path={item.path}
 														name={item.name.toUpperCase()}
 														showAdmin={showAdmin}
-														subPath={item.submenu[0].path}
-														subName={item.submenu[0].name}
+														subParentName={item.name.toUpperCase()}
 														hasSubMenu={item.hasSubMenu}
 													/>
 												</>
