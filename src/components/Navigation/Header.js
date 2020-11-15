@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
 import Nav from "react-bootstrap/Nav";
-import { Link } from "react-router-dom";
 import "../../../src/assets/scss/animations/burger-menu.scss";
 import { getUser } from "../../redux/actions/userAction";
 
@@ -16,20 +14,15 @@ class Header extends Component {
 
 		this.state = {
 			toggleCateg: false,
-			addBg: 'position-absolute',
+			// the state is getting retrieved from LS
+			menuPos: localStorage.getItem("menu-position") || "position-absolute",
+
 			links: [
 				{
 					name: "Home",
 					path: "/",
 					id: "home",
 					hasSubMenu: false,
-					submenu: [
-						{
-							name: "",
-							path: "",
-							id: "",
-						},
-					],
 				},
 
 				{
@@ -37,13 +30,6 @@ class Header extends Component {
 					path: "/interior-design",
 					id: "interior-design",
 					hasSubMenu: false,
-					submenu: [
-						{
-							name: "",
-							path: "",
-							id: "",
-						},
-					],
 				},
 
 				{
@@ -51,13 +37,6 @@ class Header extends Component {
 					path: "/portfolio",
 					id: "portfolio",
 					hasSubMenu: false,
-					submenu: [
-						{
-							name: "",
-							path: "",
-							id: "",
-						},
-					],
 				},
 
 				{
@@ -65,13 +44,6 @@ class Header extends Component {
 					path: "/blog",
 					id: "blog",
 					hasSubMenu: false,
-					submenu: [
-						{
-							name: "",
-							path: "",
-							id: "",
-						},
-					],
 				},
 
 				{
@@ -79,79 +51,58 @@ class Header extends Component {
 					path: "/about",
 					id: "about",
 					hasSubMenu: false,
-					submenu: [
-						{
-							name: "",
-							path: "",
-							id: "",
-						},
-					],
 				},
 
 				{
 					name: "Contact",
 					path: "/contact",
-					hasSubMenu: true,
-					submenu: [
-						{
-							name: "Test",
-							path: "/test",
-							id: "test",
-						},
-					],
+					hasSubMenu: false,
 				},
 
 				{
 					name: "Admin",
 					path: "#",
 					id: "admin",
-<<<<<<< HEAD
-					submenu: {
-						carousel: {
-							name: "Carousel",
-							path: "/admin-carousel",
-						},
-						blog: {
-							name: "Blog",
-							path: "/admin-blog",
-=======
 					hasSubMenu: true,
 					submenu: [
 						{
 							name: "Admin Carousel",
-							path: "/test",
-							id: "test",
->>>>>>> 804899113f0f2db1c36df11119ca3555acef0c03
+							path: "/admin-carousel",
 						},
 					],
 				},
 			],
 		};
-
-		this.handleToggleCategories = this.handleToggleCategories.bind(this);
 	}
+
 
 	componentDidMount() {
 		this.props.getUser();
+		console.log("fmm");
 	}
 
-	handleToggleCategories() {
+	handleToggleCategories = () => {
 		const toggleMenuCategory = this.state.toggleCateg;
 
 		this.setState({
 			toggleCateg: !toggleMenuCategory,
 		});
-	}
+	};
+
+	navigationPosition = (pos) => {
+		// set the state (no LS varaible existing yet :: after first clicl, state will be populated from LS)
+		this.setState({ menuPos: pos });
+
+		localStorage.setItem("menu-position", pos);
+	};
 
 	render() {
 		const classNameCat = this.state.toggleCateg ? "v-shown" : "v-hidden";
 		let showAdmin = this.props.user !== null ? "d-block" : "d-none";
-		const bg = {
-			background: 'red'
-		}
+		const { menuPos } = this.state;
 
 		return (
-			<div className={`container-fluid menu ${this.state.addBg}`}>
+			<div className={`container-fluid menu ${menuPos}`}>
 				<div className='container'>
 					<div className='row'>
 						<div className='col-lg-12'>
@@ -163,40 +114,16 @@ class Header extends Component {
 										{this.state.links.map((item, index) => {
 											return (
 												<>
-<<<<<<< HEAD
-													{item.name === "Admin" ? (
-														<NavDropdown title='ADMIN' className={`mr-5 font-weight-bold ${showAdmin}`} id='nav-dropdown'>
-															<Link onClick={() => { this.setState({ addBg: 'position-relative' }) }}
-																key={index}
-																className='mb-0 mr-5 font-weight-bold dropdown-item'
-																to={item.submenu.carousel.path}>
-																{item.submenu.carousel.name.toUpperCase()}
-															</Link>
-
-															<Link
-																onClick={() => { this.setState({ addBg: 'position-relative' }) }}
-																key={index}
-																className='mb-0 mr-5 font-weight-bold dropdown-item'
-																to={item.submenu.blog.path}>
-																{item.submenu.blog.name.toUpperCase()}
-															</Link>
-														</NavDropdown>
-													) : (
-															<Link onClick={() => { this.setState({ addBg: 'position-absolute' }) }} id={item.id} key={index} className='mb-0 mr-5 font-weight-bold nav-link' to={item.path}>
-																{item.name.toUpperCase()}
-															</Link>
-														)}
-=======
 													<RenderLinks
 														index={index}
+														sublinks={item.submenu}
 														path={item.path}
 														name={item.name.toUpperCase()}
 														showAdmin={showAdmin}
-														subPath={item.submenu[0].path}
-														subName={item.submenu[0].name}
+														subParentName={item.name.toUpperCase()}
 														hasSubMenu={item.hasSubMenu}
+														navigationPosition={this.navigationPosition}
 													/>
->>>>>>> 804899113f0f2db1c36df11119ca3555acef0c03
 												</>
 											);
 										})}
@@ -228,7 +155,7 @@ class Header extends Component {
 						</div>
 					</div>
 				</div>
-			</div>
+			</div >
 		);
 	}
 }

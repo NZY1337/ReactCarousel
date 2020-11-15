@@ -1,11 +1,11 @@
 @import "../../assets/scss/animations/animate-categories.scss";
 
 .menu {
-	// position: absolute;
 	top: 2rem;
 	color: white;
 	left: 0;
 	z-index: 1;
+	background: black;
 
 	.navbar-nav a {
 		opacity: 0.5;

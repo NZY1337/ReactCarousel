@@ -30,32 +30,35 @@ import "draft-js-alignment-plugin/lib/plugin.css";
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
-// https://www.sitepoint.com/react-router-complete-guide/ - react-router-complete guide
+class App extends React.Component {
 
 
-
-ReactDOM.render(
-	<Provider store={store}>
-		<Router>
-			<div className="dc-project">
-				<Header />
-				<Switch>
-					<Route path='/' exact component={Home} />
-					<Route path='/Portfolio' exact component={Portfolio} />
-					<Route path='/blog' exact component={Blog} />
-					<Route path='/about' exact component={About} />
-					<Route path='/interior-design' exact component={InteriorDesign} />
-					<Route path='/contact' exact component={Contact} />
-					<Route path='/admin-carousel' exact component={AdminCarousel} />
-					<Route path='/admin-blog' exact component={AdminBlog} />
-					<Route path='/login' exact component={AdminLogin} />
-				</Switch>
-				<Footer />
+	render() {
+		return (
+			<div>
+				<Provider store={store}>
+					<Router>
+						<>
+							<Header />
+							<Switch>
+								<Route path='/' exact component={Home} />
+								<Route path='/Portfolio' exact component={Portfolio} />
+								<Route path='/blog' exact component={Blog} />
+								<Route path='/about' exact component={About} />
+								<Route path='/interior-design' exact component={InteriorDesign} />
+								<Route path='/contact' exact component={Contact} />
+								<Route path='/admin-carousel' exact component={AdminCarousel} />
+								<Route path='/login' exact component={AdminLogin} />
+							</Switch>
+						</>
+					</Router>
+				</Provider>
 			</div>
-		</Router>
-	</Provider>,
-	document.getElementById("root"),
-);
+		);
+	}
+}
+
+ReactDOM.render(<App />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
