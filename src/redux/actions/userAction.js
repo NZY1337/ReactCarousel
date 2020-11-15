@@ -1,5 +1,5 @@
 import { auth, googleProvider } from "../../firebase";
-import { GET_USER, GET_PAGE } from "../actionTypes";
+import { GET_USER } from "../actionTypes";
 
 /* 
 	actionTypes send what we want to store in redux (send information to REDUX state Store)
@@ -13,13 +13,6 @@ export function logOut() {
 	return (dispatch) => auth.signOut();
 }
 
-export const detectUserPage = (url) => (dispatch) => {
-	dispatch({
-	  type: GET_PAGE,
-	  payload:url
-	});
-};
-  
 
 export function getUser() {
 	return (dispatch) => {

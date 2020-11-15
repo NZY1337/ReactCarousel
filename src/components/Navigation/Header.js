@@ -1,14 +1,11 @@
 import React, { Component } from "react";
-import About from "../Pages/About/About";
-import Contact from "../Pages/Contact/Contact";
-import InteriorDesign from "../Pages/InteriorDesign/InteriorDesign";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Nav from "react-bootstrap/Nav";
-import logo from "../../assets/images/beadesignful-logo.png";
 import { Link } from "react-router-dom";
 import "../../../src/assets/scss/animations/burger-menu.scss";
-import { getUser, detectUserPage } from "../../redux/actions/userAction";
+import { getUser } from "../../redux/actions/userAction";
+
 import { connect } from "react-redux";
 import "./menu.scss";
 
@@ -18,7 +15,7 @@ class RenderLinks extends Component {
 
 		this.state = {
 			toggleCateg: false,
-
+			addBg: 'position-absolute',
 			links: [
 				{
 					name: "Home",
@@ -79,8 +76,6 @@ class RenderLinks extends Component {
 
 	componentDidMount() {
 		this.props.getUser();
-
-		
 	}
 
 	handleToggleCategories() {
@@ -92,32 +87,28 @@ class RenderLinks extends Component {
 	}
 
 	render() {
-		let asd = '';
-
-		if (this.props.user.pathname == '/') {
-			asd = 'absolute';
-		} else {
-			asd = 'relative'
-		}
 		const classNameCat = this.state.toggleCateg ? "v-shown" : "v-hidden";
 		let showAdmin = this.props.user !== null ? "d-block" : "d-none";
+		const bg = {
+			background: 'red'
+		}
 
 		return (
-			<div className='container-fluid menu' style={{'position':asd}}>
+			<div className={`container-fluid menu ${this.state.addBg}`}>
 				<div className='container'>
 					<div className='row'>
 						<div className='col-lg-12'>
 							<Navbar collapseOnSelect className='px-0' expand='lg' variant='dark'>
 								<Navbar.Toggle aria-controls='responsive-navbar-nav' />
-								
+
 								<Navbar.Collapse id='responsive-navbar-nav'>
 									<Nav className='mr-auto'>
 										{this.state.links.map((item, index) => {
 											return (
 												<>
-													{item.name == "Admin" ? (
+													{item.name === "Admin" ? (
 														<NavDropdown title='ADMIN' className={`mr-5 font-weight-bold ${showAdmin}`} id='nav-dropdown'>
-															<Link
+															<Link onClick={() => { this.setState({ addBg: 'position-relative' }) }}
 																key={index}
 																className='mb-0 mr-5 font-weight-bold dropdown-item'
 																to={item.submenu.carousel.path}>
@@ -125,6 +116,7 @@ class RenderLinks extends Component {
 															</Link>
 
 															<Link
+																onClick={() => { this.setState({ addBg: 'position-relative' }) }}
 																key={index}
 																className='mb-0 mr-5 font-weight-bold dropdown-item'
 																to={item.submenu.blog.path}>
@@ -132,10 +124,10 @@ class RenderLinks extends Component {
 															</Link>
 														</NavDropdown>
 													) : (
-														<Link id={item.id} key={index} className='mb-0 mr-5 font-weight-bold nav-link' to={item.path}>
-															{item.name.toUpperCase()}
-														</Link>
-													)}
+															<Link onClick={() => { this.setState({ addBg: 'position-absolute' }) }} id={item.id} key={index} className='mb-0 mr-5 font-weight-bold nav-link' to={item.path}>
+																{item.name.toUpperCase()}
+															</Link>
+														)}
 												</>
 											);
 										})}
@@ -174,8 +166,10 @@ class RenderLinks extends Component {
 
 function mapStateToProps(state, ownProps) {
 	return {
+		// get the props from state (reasign)
 		user: state.user,
+		path: state.url
 	};
 }
 
-export default connect(mapStateToProps, { getUser, detectUserPage })(RenderLinks);
+export default connect(mapStateToProps, { getUser })(RenderLinks);

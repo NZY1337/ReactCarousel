@@ -23,16 +23,21 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import rootReducer from "./redux/reducers";
+
 import "draft-js-focus-plugin/lib/plugin.css";
 import "draft-js-image-plugin/lib/plugin.css";
 import "draft-js-alignment-plugin/lib/plugin.css";
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
+// https://www.sitepoint.com/react-router-complete-guide/ - react-router-complete guide
+
+
+
 ReactDOM.render(
 	<Provider store={store}>
 		<Router>
-			<>
+			<div className="dc-project">
 				<Header />
 				<Switch>
 					<Route path='/' exact component={Home} />
@@ -46,7 +51,7 @@ ReactDOM.render(
 					<Route path='/login' exact component={AdminLogin} />
 				</Switch>
 				<Footer />
-			</>
+			</div>
 		</Router>
 	</Provider>,
 	document.getElementById("root"),

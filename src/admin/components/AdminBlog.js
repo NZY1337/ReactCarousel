@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -7,39 +6,20 @@ import "../admin.scss";
 import TextEditor from "../../utils/TextEditor";
 
 import "react-datepicker/dist/react-datepicker.css";
+import { EditorState, convertToRaw, convertFromRaw } from "draft-js";
 
-const bg = "https://images.unsplash.com/photo-1542435503-956c469947f6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1934&q=80";
+// import redux;
+import { connect } from "react-redux";
+import { createNote } from '../../redux/actions/notesAction';
 
-const Container = styled.div`
-	background-image: url(${bg});
-	background-repeat: no-repeat;
-	background-size: cover;
-	width: 100%;
-	height: 100vh;
-	position: relative;
-	color: #fff;
-
-	&:before {
-		content: "";
-		position: absolute;
-		left: 0;
-		right: 0;
-		top: 0;
-		bottom: 0;
-		width: 100%;
-		height: 100%;
-		background: rgba(0, 0, 0, 0.5);
-	}
-`;
 
 class AdminBlog extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			title: "",
-			description: "",
-			date: new Date(),
+			article: null,
+			editorState: EditorState.createEmpty()
 		};
 	}
 
@@ -49,17 +29,22 @@ class AdminBlog extends Component {
 		});
 	};
 
-	onSubmit = (e) => {
+	sendNotes = (e) => {
 		e.preventDefault();
+
+		let contentState = this.state.editorState.getCurrentContent()
+		let note = { content: convertToRaw(contentState) }
+		note["content"] = JSON.stringify(note.content);
+		this.props.createNote(note.content);
 	};
 
 	render() {
 		return (
-			<div className='container-fluid my-5'>
+			<div className='container-fluid  admin-blog'>
 				<div className='container h-100'>
 					<div className='row h-100 justify-content-center'>
 						<div className='col-lg-12 h-100 d-flex flex-column  justify-content-center'>
-							<Form className='w-100' onSubmit={this.onSubmit}>
+							<Form className='w-100' onSubmit={this.sendNotes}>
 								<Form.Group controlId='formBasicEmail'>
 									<Form.Label>Blog Title</Form.Label>
 									<Form.Control type='text' placeholder='blog title' />
@@ -70,7 +55,9 @@ class AdminBlog extends Component {
 									<DatePicker className='form-control' selected={this.state.date} onChange={(date) => this.setStartDate(date)} />
 								</Form.Group>
 
-								<TextEditor />
+								<div className="editor-container">
+									<TextEditor getTextEditorState={this.getTextEditorState} />
+								</div>
 
 								<Button className='mt-3' variant='danger' type='submit'>
 									Submit
@@ -84,4 +71,10 @@ class AdminBlog extends Component {
 	}
 }
 
-export default AdminBlog;
+function mapStateToProps(state, ownProps) {
+	return {
+		post: state.notes
+	}
+}
+
+export default connect(mapStateToProps, { createNote })(AdminBlog);

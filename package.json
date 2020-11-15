@@ -21,6 +21,7 @@
 		"draft-js-resizeable-plugin": "^2.0.9",
 		"firebase": "^7.24.0",
 		"font-awesome": "^4.7.0",
+		"lodash": "^4.17.20",
 		"node": "^13.10.1",
 		"node-sass": "^4.13.1",
 		"react": "^16.14.0",
