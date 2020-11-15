@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import "./App.scss";
@@ -30,33 +30,37 @@ import "draft-js-alignment-plugin/lib/plugin.css";
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
-class App extends React.Component {
 
 
-	render() {
-		return (
-			<div>
-				<Provider store={store}>
-					<Router>
-						<>
-							<Header />
-							<Switch>
-								<Route path='/' exact component={Home} />
-								<Route path='/Portfolio' exact component={Portfolio} />
-								<Route path='/blog' exact component={Blog} />
-								<Route path='/about' exact component={About} />
-								<Route path='/interior-design' exact component={InteriorDesign} />
-								<Route path='/contact' exact component={Contact} />
-								<Route path='/admin-carousel' exact component={AdminCarousel} />
-								<Route path='/admin-blog' exact component={AdminBlog} />
-								<Route path='/login' exact component={AdminLogin} />
-							</Switch>
-						</>
-					</Router>
-				</Provider>
-			</div>
-		);
-	}
+
+function App() {
+	return (
+		<div>
+			<Provider store={store}>
+				<Router>
+					<>
+
+						<Header />
+
+						<Switch>
+							<Route path='/' exact component={Home} />
+							<Route path='/Portfolio' exact component={Portfolio} />
+							<Route path='/blog' exact component={Blog} />
+							<Route path='/about' exact component={About} />
+							<Route path='/interior-design' exact component={InteriorDesign} />
+							<Route path='/contact' exact component={Contact} />
+							<Route path='/admin-carousel' exact component={AdminCarousel} />
+							<Route path='/admin-blog' exact component={AdminBlog} />
+							<Route path='/login' exact component={AdminLogin} />
+						</Switch>
+						<Footer />
+
+					</>
+				</Router>
+			</Provider>
+		</div>
+	);
+
 }
 
 ReactDOM.render(<App />, document.getElementById("root"));
