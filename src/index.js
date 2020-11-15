@@ -48,6 +48,7 @@ class App extends React.Component {
 								<Route path='/interior-design' exact component={InteriorDesign} />
 								<Route path='/contact' exact component={Contact} />
 								<Route path='/admin-carousel' exact component={AdminCarousel} />
+								<Route path='/admin-blog' exact component={AdminBlog} />
 								<Route path='/login' exact component={AdminLogin} />
 							</Switch>
 						</>
