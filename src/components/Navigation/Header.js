@@ -8,8 +8,9 @@ import { getUser } from "../../redux/actions/userAction";
 
 import { connect } from "react-redux";
 import "./menu.scss";
+import RenderLinks from "./RenderLinks";
 
-class RenderLinks extends Component {
+class Header extends Component {
 	constructor(props) {
 		super(props);
 
@@ -21,42 +22,90 @@ class RenderLinks extends Component {
 					name: "Home",
 					path: "/",
 					id: "home",
+					hasSubMenu: false,
+					submenu: [
+						{
+							name: "",
+							path: "",
+							id: "",
+						},
+					],
 				},
 
 				{
 					name: "Interior Design",
 					path: "/interior-design",
 					id: "interior-design",
+					hasSubMenu: false,
+					submenu: [
+						{
+							name: "",
+							path: "",
+							id: "",
+						},
+					],
 				},
 
 				{
 					name: "Portofolio",
 					path: "/portfolio",
 					id: "portfolio",
+					hasSubMenu: false,
+					submenu: [
+						{
+							name: "",
+							path: "",
+							id: "",
+						},
+					],
 				},
 
 				{
 					name: "Blog",
 					path: "/blog",
 					id: "blog",
+					hasSubMenu: false,
+					submenu: [
+						{
+							name: "",
+							path: "",
+							id: "",
+						},
+					],
 				},
 
 				{
 					name: "About",
 					path: "/about",
 					id: "about",
+					hasSubMenu: false,
+					submenu: [
+						{
+							name: "",
+							path: "",
+							id: "",
+						},
+					],
 				},
 
 				{
 					name: "Contact",
 					path: "/contact",
-					id: "contact",
+					hasSubMenu: true,
+					submenu: [
+						{
+							name: "Test",
+							path: "/test",
+							id: "test",
+						},
+					],
 				},
 
 				{
 					name: "Admin",
 					path: "#",
 					id: "admin",
+<<<<<<< HEAD
 					submenu: {
 						carousel: {
 							name: "Carousel",
@@ -65,8 +114,16 @@ class RenderLinks extends Component {
 						blog: {
 							name: "Blog",
 							path: "/admin-blog",
+=======
+					hasSubMenu: true,
+					submenu: [
+						{
+							name: "Admin Carousel",
+							path: "/test",
+							id: "test",
+>>>>>>> 804899113f0f2db1c36df11119ca3555acef0c03
 						},
-					},
+					],
 				},
 			],
 		};
@@ -106,6 +163,7 @@ class RenderLinks extends Component {
 										{this.state.links.map((item, index) => {
 											return (
 												<>
+<<<<<<< HEAD
 													{item.name === "Admin" ? (
 														<NavDropdown title='ADMIN' className={`mr-5 font-weight-bold ${showAdmin}`} id='nav-dropdown'>
 															<Link onClick={() => { this.setState({ addBg: 'position-relative' }) }}
@@ -128,6 +186,17 @@ class RenderLinks extends Component {
 																{item.name.toUpperCase()}
 															</Link>
 														)}
+=======
+													<RenderLinks
+														index={index}
+														path={item.path}
+														name={item.name.toUpperCase()}
+														showAdmin={showAdmin}
+														subPath={item.submenu[0].path}
+														subName={item.submenu[0].name}
+														hasSubMenu={item.hasSubMenu}
+													/>
+>>>>>>> 804899113f0f2db1c36df11119ca3555acef0c03
 												</>
 											);
 										})}
@@ -172,4 +241,4 @@ function mapStateToProps(state, ownProps) {
 	};
 }
 
-export default connect(mapStateToProps, { getUser })(RenderLinks);
+export default connect(mapStateToProps, { getUser })(Header);
