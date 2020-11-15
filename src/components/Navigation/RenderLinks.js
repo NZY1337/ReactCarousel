@@ -2,11 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
-export default function RenderLinks({ path, name, index, showAdmin, subParentName, hasSubMenu, sublinks }) {
+export default function RenderLinks({ path, name, index, showAdmin, subParentName, hasSubMenu, sublinks, navigationPosition }) {
 	return (
 		<>
 			{!hasSubMenu ? (
-				<Link key={index} className='mb-0 mr-5 font-weight-bold nav-link' to={path}>
+				<Link onClick={() => navigationPosition("position-absolute")} key={index} className='mb-0 mr-5 font-weight-bold nav-link' to={path}>
 					{name}
 				</Link>
 			) : (
@@ -14,7 +14,11 @@ export default function RenderLinks({ path, name, index, showAdmin, subParentNam
 					{sublinks.map((sublink) => {
 						return (
 							<>
-								<Link key={index} className='mb-0 mr-5 font-weight-bold dropdown-item' to={sublink.path}>
+								<Link
+									onClick={() => navigationPosition("position-relative")}
+									key={index}
+									className='mb-0 mr-5 font-weight-bold dropdown-item'
+									to={sublink.path}>
 									{sublink.name}
 								</Link>
 							</>

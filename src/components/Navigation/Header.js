@@ -1,12 +1,7 @@
 import React, { Component } from "react";
-import About from "../Pages/About/About";
-import Contact from "../Pages/Contact/Contact";
-import InteriorDesign from "../Pages/InteriorDesign/InteriorDesign";
+
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
 import Nav from "react-bootstrap/Nav";
-import logo from "../../assets/images/beadesignful-logo.png";
-import { Link } from "react-router-dom";
 import "../../../src/assets/scss/animations/burger-menu.scss";
 import { getUser } from "../../redux/actions/userAction";
 import { connect } from "react-redux";
@@ -19,6 +14,8 @@ class Header extends Component {
 
 		this.state = {
 			toggleCateg: false,
+			// the state is getting retrieved from LS
+			menuPos: localStorage.getItem("menu-position") || "position-absolute",
 
 			links: [
 				{
@@ -76,28 +73,35 @@ class Header extends Component {
 				},
 			],
 		};
-
-		this.handleToggleCategories = this.handleToggleCategories.bind(this);
 	}
 
 	componentDidMount() {
 		this.props.getUser();
+		console.log("fmm");
 	}
 
-	handleToggleCategories() {
+	handleToggleCategories = () => {
 		const toggleMenuCategory = this.state.toggleCateg;
 
 		this.setState({
 			toggleCateg: !toggleMenuCategory,
 		});
-	}
+	};
+
+	navigationPosition = (pos) => {
+		// set the state (no LS varaible existing yet :: after first clicl, state will be populated from LS)
+		this.setState({ menuPos: pos });
+
+		localStorage.setItem("menu-position", pos);
+	};
 
 	render() {
 		const classNameCat = this.state.toggleCateg ? "v-shown" : "v-hidden";
 		let showAdmin = this.props.user !== null ? "d-block" : "d-none";
+		const { menuPos } = this.state;
 
 		return (
-			<div className='container-fluid menu'>
+			<div className={`container-fluid menu ${menuPos}`}>
 				<div className='container'>
 					<div className='row'>
 						<div className='col-lg-12'>
@@ -117,6 +121,7 @@ class Header extends Component {
 														showAdmin={showAdmin}
 														subParentName={item.name.toUpperCase()}
 														hasSubMenu={item.hasSubMenu}
+														navigationPosition={this.navigationPosition}
 													/>
 												</>
 											);
