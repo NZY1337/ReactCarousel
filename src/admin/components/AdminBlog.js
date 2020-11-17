@@ -36,6 +36,8 @@ class AdminBlog extends Component {
 		let note = { content: convertToRaw(contentState) }
 		note["content"] = JSON.stringify(note.content);
 		this.props.createNote(note.content);
+
+		// console.log(convertToRaw(this.state.editorState.getCurrentContent()))
 	};
 
 	render() {

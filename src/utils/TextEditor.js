@@ -69,6 +69,7 @@ class TextEditor extends React.Component {
 
 	onChange = (editorState) => {
 		this.setState({ editorState });
+		console.log(convertToRaw(this.state.editorState.getCurrentContent()))
 	}
 
 
@@ -149,10 +150,9 @@ class TextEditor extends React.Component {
 	}
 
 	render() {
-		let final = null;
 
 		const asd = _.map(this.props.note, (note, key) => {
-			final = note;
+
 			return (
 				<div key={key}>
 					{note}
@@ -207,7 +207,7 @@ class TextEditor extends React.Component {
 				</div>
 
 				<div className="asd">
-					{final}
+					{asd}
 				</div>
 			</div>
 		);
