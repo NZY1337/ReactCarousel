@@ -4,38 +4,40 @@ const nodemailer = require("nodemailer");
 const cors = require("cors")({ origin: true });
 admin.initializeApp();
 
-const user = "mandreicosmin@yahoo.com";
-const pass = "noizy.1337";
+const user = "a7eb9ce78fb6db";
+const pass = "a49db7431f7575";
 
-let mailTransport = nodemailer.createTransport({
-	host: "mail.yahoo.com",
-	auth: {
-		user: user, // generated ethereal user
-		pass: pass, // generated ethereal password
-	},
+
+var transport = nodemailer.createTransport({
+    host: "smtp.mailtrap.io",
+    port: 2525,
+    auth: {
+        user: user,
+        pass: pass
+    }
 });
 
-exports.sendMail = functions.https.onRequest((req, res) => {
-	cors(req, res, () => {
-		// getting dest email by query string
-		const dest = req.query.dest;
+exports.contactForm = functions.firestore.document('welcome/{id}').onCreate((snap, context) => {
+    const email = snap.data().email;
+    const name = snap.data().name;
+    const message = snap.data().message;
+    return sendContactForm(email, name, message);
+})
 
-		const mailOptions = {
-			from: "Your Account Name <yourgmailaccount@gmail.com>", // Something like: Jane Doe <janedoe@gmail.com>
-			to: dest,
-			subject: "I'M A PICKLE!!!", // email subject
-			html: `<p style="font-size: 16px;">Pickle Riiiiiiiiiiiiiiiick!!</p>
-                <br />
-                <img src="https://images.prod.meredith.com/product/fc8754735c8a9b4aebb786278e7265a5/1538025388228/l/rick-and-morty-pickle-rick-sticker" />
-            `, // email content in HTML
-		};
-
-		// returning result
-		return transporter.sendMail(mailOptions, (erro, info) => {
-			if (erro) {
-				return res.send(erro.toString());
-			}
-			return res.send("Sended");
-		});
-	});
-});
+async function sendContactForm(email, name, message) {
+    try {
+        const r = await transport.sendMail({
+            from: `A message from ${name} `,
+            to: email,
+            subject: message,
+            html: `
+            <h1>hola ${name}, Gracias!</h1>
+            <hr/>
+            <p>${message}</p>
+        `
+        });
+        return r;
+    } catch (e) {
+        return e;
+    }
+}
