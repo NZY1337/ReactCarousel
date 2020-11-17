@@ -75,7 +75,6 @@ class Header extends Component {
 		};
 	}
 
-
 	componentDidMount() {
 		this.props.getUser();
 		console.log("fmm");
@@ -97,7 +96,7 @@ class Header extends Component {
 	};
 
 	render() {
-		const classNameCat = this.state.toggleCateg ? "v-shown" : "v-hidden";
+		const classNameCat = this.state.toggleCateg ? "d-block" : "d-none";
 		let showAdmin = this.props.user !== null ? "d-block" : "d-none";
 		const { menuPos } = this.state;
 
@@ -144,7 +143,9 @@ class Header extends Component {
 						</div>
 
 						<div className='col-lg-12'>
-							<div className={`text-white text-right ${classNameCat}`}>
+							<div
+								style={{ right: "0", top: 0, color: "black" }}
+								className={`text-right ${classNameCat} position-absolute  bg-dark p-3 text-white`}>
 								<h6 className='a-c1'>House span</h6>
 								<h6 className='a-c2'>Club / Bar</h6>
 								<h6 className='a-c3'>World</h6>
@@ -155,7 +156,7 @@ class Header extends Component {
 						</div>
 					</div>
 				</div>
-			</div >
+			</div>
 		);
 	}
 }
@@ -164,7 +165,7 @@ function mapStateToProps(state, ownProps) {
 	return {
 		// get the props from state (reasign)
 		user: state.user,
-		path: state.url
+		path: state.url,
 	};
 }
 
