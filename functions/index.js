@@ -1,45 +1,41 @@
-const functions = require('firebase-functions');
-const admin = require('firebase-admin');
-const nodemailer = require('nodemailer');
-const cors = require('cors')({ origin: true });
+const functions = require("firebase-functions");
+const admin = require("firebase-admin");
+const nodemailer = require("nodemailer");
+const cors = require("cors")({ origin: true });
 admin.initializeApp();
 
+const user = "mandreicosmin@yahoo.com";
+const pass = "noizy.1337";
 
-/**
-* Here we're using Gmail to send 
-*/
-
-var transporter = nodemailer.createTransport({
-    host: "smtp.mailtrap.io",
-    port: 2525,
-    auth: {
-        user: "a7eb9ce78fb6db",
-        pass: "a49db7431f7575"
-    }
+let mailTransport = nodemailer.createTransport({
+	host: "mail.yahoo.com",
+	auth: {
+		user: user, // generated ethereal user
+		pass: pass, // generated ethereal password
+	},
 });
 
 exports.sendMail = functions.https.onRequest((req, res) => {
-    cors(req, res, () => {
+	cors(req, res, () => {
+		// getting dest email by query string
+		const dest = req.query.dest;
 
-        // getting dest email by query string
-        const dest = req.query.dest;
-
-        const mailOptions = {
-            from: 'Your Account Name <mandreicosmin@yahoo.com>', // Something like: Jane Doe <janedoe@gmail.com>
-            to: dest,
-            subject: 'I\'M A PICKLE!!!', // email subject
-            html: `<p style="font-size: 16px;">Pickle Riiiiiiiiiiiiiiiick!!</p>
+		const mailOptions = {
+			from: "Your Account Name <yourgmailaccount@gmail.com>", // Something like: Jane Doe <janedoe@gmail.com>
+			to: dest,
+			subject: "I'M A PICKLE!!!", // email subject
+			html: `<p style="font-size: 16px;">Pickle Riiiiiiiiiiiiiiiick!!</p>
                 <br />
                 <img src="https://images.prod.meredith.com/product/fc8754735c8a9b4aebb786278e7265a5/1538025388228/l/rick-and-morty-pickle-rick-sticker" />
-            ` // email content in HTML
-        };
+            `, // email content in HTML
+		};
 
-        // returning result
-        return transporter.sendMail(mailOptions, (erro, info) => {
-            if (erro) {
-                return res.send(erro.toString());
-            }
-            return res.send('Sended');
-        });
-    });
+		// returning result
+		return transporter.sendMail(mailOptions, (erro, info) => {
+			if (erro) {
+				return res.send(erro.toString());
+			}
+			return res.send("Sended");
+		});
+	});
 });
