@@ -51,6 +51,7 @@ class App extends React.Component {
 								<Route path='/admin-blog' exact component={AdminBlog} />
 								<Route path='/login' exact component={AdminLogin} />
 							</Switch>
+							<Footer />
 						</>
 					</Router>
 				</Provider>

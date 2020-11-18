@@ -69,6 +69,10 @@ class Header extends Component {
 							name: "Admin Carousel",
 							path: "/admin-carousel",
 						},
+						{
+							name: "Admin Blog",
+							path: "/admin-blog",
+						},
 					],
 				},
 			],
