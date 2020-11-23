@@ -6,7 +6,7 @@ import "../admin.scss";
 import TextEditor from "../../utils/TextEditor";
 
 import "react-datepicker/dist/react-datepicker.css";
-import { EditorState, convertToRaw, convertFromRaw } from "draft-js";
+import { EditorState, convertToRaw } from "draft-js";
 
 // import redux;
 import { connect } from "react-redux";
@@ -18,8 +18,7 @@ class AdminBlog extends Component {
 		super(props);
 
 		this.state = {
-			article: null,
-			editorState: EditorState.createEmpty()
+			editorState: null
 		};
 	}
 
@@ -29,6 +28,12 @@ class AdminBlog extends Component {
 		});
 	};
 
+	getStateEditorCallBack = state => {
+		this.setState({
+			editorState: state
+		})
+	}
+
 	sendNotes = (e) => {
 		e.preventDefault();
 
@@ -36,11 +41,10 @@ class AdminBlog extends Component {
 		let note = { content: convertToRaw(contentState) }
 		note["content"] = JSON.stringify(note.content);
 		this.props.createNote(note.content);
-
-		// console.log(convertToRaw(this.state.editorState.getCurrentContent()))
 	};
 
 	render() {
+
 		return (
 			<div className='container-fluid  admin-blog'>
 				<div className='container h-100'>
@@ -58,7 +62,7 @@ class AdminBlog extends Component {
 								</Form.Group>
 
 								<div className="editor-container">
-									<TextEditor getTextEditorState={this.getTextEditorState} />
+									<TextEditor getStateEditorCallBack={this.getStateEditorCallBack} />
 								</div>
 
 								<Button className='mt-3' variant='danger' type='submit'>

@@ -48,7 +48,8 @@ class TextEditor extends React.Component {
 
 		this.plugins = [highlightPlugin, addLinkPlugin, imagePlugin, alignmentPlugin, resizeablePlugin, focusPlugin];
 
-		this.finalState = []
+		this.finalState = {}
+
 	}
 
 	handleClick = (e) => {
@@ -69,9 +70,9 @@ class TextEditor extends React.Component {
 
 	onChange = (editorState) => {
 		this.setState({ editorState });
-		console.log(convertToRaw(this.state.editorState.getCurrentContent()))
+		// console.log(convertToRaw(this.state.editorState.getCurrentContent()))
+		this.props.getStateEditorCallBack(editorState)
 	}
-
 
 	toggleBlockType = (blockType) => {
 		this.onChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
@@ -131,35 +132,22 @@ class TextEditor extends React.Component {
 
 	componentDidMount() {
 		this.props.getNote();
-		let final = null;
+		if (this.props.note !== null) {
 
-		const asd = _.map(this.props.note, (note, key) => {
-			final = note;
-			return (
-				<div key={key}>
-					{note}
-				</div>
-			);
-		});
-
-		if (this.state.note) {
 			this.setState({
-				editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(final)))
+				// editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.note['-MMq8cenI8sAOoHz-0UB'])))
 			})
 		}
 	}
 
 	render() {
-
 		const asd = _.map(this.props.note, (note, key) => {
-
 			return (
 				<div key={key}>
 					{note}
 				</div>
 			);
 		});
-
 
 		return (
 			<div className='editor'>
@@ -201,7 +189,6 @@ class TextEditor extends React.Component {
 						editorState={this.state.editorState}
 						handleKeyCommand={this.handleKeyCommand}
 						onChange={this.onChange}
-
 					/>
 					<AlignmentTool />
 				</div>

@@ -79,7 +79,7 @@ class UploadImage extends React.Component {
 
                 <input id='upload-img' className='d-none' onChange={this.handleChange} type='file' />
 
-                {this.state.imageUrl && <button onClick={this.handleUploadToFirebaseStorage}>Upload Img To Firebase</button>}
+                {this.state.imageUrl && <button type="button" onClick={this.handleUploadToFirebaseStorage}>Upload Img To Firebase</button>}
 
             </>
         )

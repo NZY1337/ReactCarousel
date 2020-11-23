@@ -42,7 +42,7 @@ function Contact() {
 			<div className="container h-100">
 				<div className='row justify-content-center align-items-center h-100'>
 
-					<div className='col-lg-9 px-0 dc-contact align-items-stretch d-flex'>
+					<div className='col-lg-10 px-0 dc-contact align-items-stretch d-flex'>
 						<Form className='col-lg-7 dc-contact_form w-100' onSubmit={onSubmitContactForm}>
 
 							<Form.Group controlId='formBasicEmail'>
