@@ -57,7 +57,6 @@ class UploadImage extends React.Component {
                     })
             }
         )
-
     }
 
     displayUx = (imgPath) => {

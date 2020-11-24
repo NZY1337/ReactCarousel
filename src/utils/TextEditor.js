@@ -49,7 +49,6 @@ class TextEditor extends React.Component {
 		this.plugins = [highlightPlugin, addLinkPlugin, imagePlugin, alignmentPlugin, resizeablePlugin, focusPlugin];
 
 		this.finalState = {}
-
 	}
 
 	handleClick = (e) => {
@@ -70,7 +69,6 @@ class TextEditor extends React.Component {
 
 	onChange = (editorState) => {
 		this.setState({ editorState });
-		// console.log(convertToRaw(this.state.editorState.getCurrentContent()))
 		this.props.getStateEditorCallBack(editorState)
 	}
 
@@ -132,16 +130,28 @@ class TextEditor extends React.Component {
 
 	componentDidMount() {
 		this.props.getNote();
-		if (this.props.note !== null) {
 
-			this.setState({
-				// editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.note['-MMq8cenI8sAOoHz-0UB'])))
-			})
-		}
+		this.setState({
+			editorState: EditorState.createEmpty()
+		})
 	}
+
+	componentWillReceiveProps = (nextProps) => {
+		let item = null;
+		_.map(nextProps.note, (note, key) => {
+			return item = note
+		});
+
+		this.setState({
+			editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(item)))
+		})
+
+	}
+
 
 	render() {
 		const asd = _.map(this.props.note, (note, key) => {
+
 			return (
 				<div key={key}>
 					{note}
@@ -191,10 +201,6 @@ class TextEditor extends React.Component {
 						onChange={this.onChange}
 					/>
 					<AlignmentTool />
-				</div>
-
-				<div className="asd">
-					{asd}
 				</div>
 			</div>
 		);

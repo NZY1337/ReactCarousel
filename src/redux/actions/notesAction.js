@@ -7,7 +7,6 @@ export const createNote = (note) => dispatch => {
 }
 
 // get note
-
 export function getNote() {
     return (dispatch) => {
         database.on(
