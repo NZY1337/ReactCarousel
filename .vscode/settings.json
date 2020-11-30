@@ -1,19 +1,13 @@
 {
-    "editor.formatOnSave": true,
-    "prettier.jsxSingleQuote": true,
-    "prettier.jsxBracketSameLine": true,
-    "prettier.useTabs": true,
-    "prettier.trailingComma": "all",
-    "prettier.printWidth": 100,
-    "launch": {
-
-
-        "configurations": [],
-        "compounds": []
-    },
-<<<<<<< HEAD
-    "editor.fontSize": 15
-=======
-    "editor.fontSize": 11.5
->>>>>>> ae108677445b8f5203e5faa1115bd735fbdb4700
+	"editor.formatOnSave": true,
+	"prettier.jsxSingleQuote": true,
+	"prettier.jsxBracketSameLine": true,
+	"prettier.useTabs": true,
+	"prettier.trailingComma": "all",
+	"prettier.printWidth": 100,
+	"launch": {
+		"configurations": [],
+		"compounds": []
+	},
+	"editor.fontSize": 13
 }

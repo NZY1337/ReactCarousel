@@ -22,9 +22,8 @@ import addLinkPlugin from "./plugins/addLinkPlugin";
 
 // redux
 import { connect } from "react-redux";
-import { getNote } from '../redux/actions/notesAction';
+import { getNote } from "../redux/actions/notesAction";
 import _ from "lodash";
-
 
 const highlightPlugin = createHighlightPlugin();
 const alignmentPlugin = createAlignmentPlugin();
@@ -40,8 +39,6 @@ const decorator = composeDecorators(
 
 const imagePlugin = createImagePlugin({ decorator });
 
-
-
 class TextEditor extends React.Component {
 	constructor(props) {
 		super(props);
@@ -49,9 +46,16 @@ class TextEditor extends React.Component {
 
 		this.handleKeyCommand = this.handleKeyCommand.bind(this);
 
-		this.plugins = [highlightPlugin, addLinkPlugin, imagePlugin, alignmentPlugin, resizeablePlugin, focusPlugin];
+		this.plugins = [
+			highlightPlugin,
+			addLinkPlugin,
+			imagePlugin,
+			alignmentPlugin,
+			resizeablePlugin,
+			focusPlugin,
+		];
 
-		this.finalState = {}
+		this.finalState = {};
 	}
 
 	handleClick = (e) => {
@@ -74,8 +78,8 @@ class TextEditor extends React.Component {
 
 	onChange = (editorState) => {
 		this.setState({ editorState });
-		this.props.getStateEditorCallBack(editorState)
-	}
+		this.props.getStateEditorCallBack(editorState);
+	};
 
 	toggleBlockType = (blockType) => {
 		this.onChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
@@ -137,31 +141,24 @@ class TextEditor extends React.Component {
 		this.props.getNote();
 
 		this.setState({
-			editorState: EditorState.createEmpty()
-		})
+			editorState: EditorState.createEmpty(),
+		});
 	}
 
 	componentWillReceiveProps = (nextProps) => {
 		let item = null;
 		_.map(nextProps.note, (note, key) => {
-			return item = note
+			return (item = note);
 		});
 
 		this.setState({
-			editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(item)))
-		})
-
-	}
-
+			editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(item))),
+		});
+	};
 
 	render() {
 		const asd = _.map(this.props.note, (note, key) => {
-
-			return (
-				<div key={key}>
-					{note}
-				</div>
-			);
+			return <div key={key}>{note}</div>;
 		});
 
 		return (
@@ -219,14 +216,10 @@ class TextEditor extends React.Component {
 	}
 }
 
-<<<<<<< HEAD
-export default TextEditor;
-=======
 function mapStateToProps(state, ownProps) {
 	return {
-		note: state.notes
-	}
+		note: state.notes,
+	};
 }
 
 export default connect(mapStateToProps, { getNote })(TextEditor);
->>>>>>> ae108677445b8f5203e5faa1115bd735fbdb4700

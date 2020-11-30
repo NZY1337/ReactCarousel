@@ -166,13 +166,9 @@ class Header extends Component {
 
 function mapStateToProps(state, ownProps) {
 	return {
-<<<<<<< HEAD
-		user: state.user.url,
-=======
 		// get the props from state (reasign)
 		user: state.user,
 		path: state.url,
->>>>>>> ae108677445b8f5203e5faa1115bd735fbdb4700
 	};
 }
 

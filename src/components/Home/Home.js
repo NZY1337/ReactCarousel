@@ -9,33 +9,21 @@ class Home extends Component {
 	constructor(props) {
 		super(props);
 
-        this.state = {
-
-        }
-    }
-
-    componentDidMount() {
-        this.props.detectUserPage(this.props.location.pathname)
-    }
-
-    render() {
-
-        return (
-            <div>
-                < Carousel />
-                < Categories />
-            </div>
-        )
-    }
-}
+		this.state = {};
+	}
 
 	componentDidMount() {
 		this.props.detectUserPage(this.props.location.pathname);
 	}
 
-
-export default withRouter(
-    connect(null, { detectUserPage })(Home)
-)
+	render() {
+		return (
+			<div>
+				<Carousel />
+				<Categories />
+			</div>
+		);
+	}
+}
 
 export default withRouter(connect(null, { detectUserPage })(Home));
