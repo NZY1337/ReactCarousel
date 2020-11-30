@@ -1,108 +1,110 @@
 import React, { Component } from "react";
-import About from "../Pages/About/About";
-import Contact from "../Pages/Contact/Contact";
-import InteriorDesign from "../Pages/InteriorDesign/InteriorDesign";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
 import Nav from "react-bootstrap/Nav";
-import logo from "../../assets/images/beadesignful-logo.png";
-import { Link } from "react-router-dom";
 import "../../../src/assets/scss/animations/burger-menu.scss";
-import { getUser, detectUserPage } from "../../redux/actions/userAction";
+import { getUser } from "../../redux/actions/userAction";
+
 import { connect } from "react-redux";
 import "./menu.scss";
+import RenderLinks from "./RenderLinks";
 
-class RenderLinks extends Component {
+class Header extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
 			toggleCateg: false,
+			// the state is getting retrieved from LS
+			menuPos: localStorage.getItem("menu-position") || "position-absolute",
 
 			links: [
 				{
 					name: "Home",
 					path: "/",
 					id: "home",
+					hasSubMenu: false,
 				},
 
 				{
 					name: "Interior Design",
 					path: "/interior-design",
 					id: "interior-design",
+					hasSubMenu: false,
 				},
 
 				{
 					name: "Portofolio",
 					path: "/portfolio",
 					id: "portfolio",
+					hasSubMenu: false,
 				},
 
 				{
 					name: "Blog",
 					path: "/blog",
 					id: "blog",
+					hasSubMenu: false,
 				},
 
 				{
 					name: "About",
 					path: "/about",
 					id: "about",
+					hasSubMenu: false,
 				},
 
 				{
 					name: "Contact",
 					path: "/contact",
-					id: "contact",
+					hasSubMenu: false,
 				},
 
 				{
 					name: "Admin",
 					path: "#",
 					id: "admin",
-					submenu: {
-						carousel: {
-							name: "Carousel",
+					hasSubMenu: true,
+					submenu: [
+						{
+							name: "Admin Carousel",
 							path: "/admin-carousel",
 						},
-						blog: {
-							name: "Blog",
+						{
+							name: "Admin Blog",
 							path: "/admin-blog",
 						},
-					},
+					],
 				},
 			],
 		};
-
-		this.handleToggleCategories = this.handleToggleCategories.bind(this);
 	}
 
 	componentDidMount() {
 		this.props.getUser();
 	}
 
-	handleToggleCategories() {
+	handleToggleCategories = () => {
 		const toggleMenuCategory = this.state.toggleCateg;
 
 		this.setState({
 			toggleCateg: !toggleMenuCategory,
 		});
-	}
+	};
+
+	navigationPosition = (pos) => {
+		// set the state (no LS varaible existing yet :: after first clicl, state will be populated from LS)
+		this.setState({ menuPos: pos });
+
+		localStorage.setItem("menu-position", pos);
+	};
 
 	render() {
-		let asd = "";
-
-		if (this.props.user == "/") {
-			asd = "absolute";
-			console.log("ok");
-		} else {
-			asd = "relative";
-		}
-		const classNameCat = this.state.toggleCateg ? "v-shown" : "v-hidden";
+		const classNameCat = this.state.toggleCateg ? "d-block" : "d-none";
 		let showAdmin = this.props.user !== null ? "d-block" : "d-none";
+		const { menuPos } = this.state;
 
 		return (
-			<div className='container-fluid menu' style={{ position: asd }}>
+			<div className={`container-fluid menu ${menuPos}`}>
 				<div className='container'>
 					<div className='row'>
 						<div className='col-lg-12'>
@@ -114,34 +116,16 @@ class RenderLinks extends Component {
 										{this.state.links.map((item, index) => {
 											return (
 												<>
-													{item.name == "Admin" ? (
-														<NavDropdown
-															title='ADMIN'
-															className={`mr-5 font-weight-bold ${showAdmin}`}
-															id='nav-dropdown'>
-															<Link
-																key={index}
-																className='mb-0 mr-5 font-weight-bold dropdown-item'
-																to={item.submenu.carousel.path}>
-																{item.submenu.carousel.name.toUpperCase()}
-															</Link>
-
-															<Link
-																key={index}
-																className='mb-0 mr-5 font-weight-bold dropdown-item'
-																to={item.submenu.blog.path}>
-																{item.submenu.blog.name.toUpperCase()}
-															</Link>
-														</NavDropdown>
-													) : (
-														<Link
-															id={item.id}
-															key={index}
-															className='mb-0 mr-5 font-weight-bold nav-link'
-															to={item.path}>
-															{item.name.toUpperCase()}
-														</Link>
-													)}
+													<RenderLinks
+														index={index}
+														sublinks={item.submenu}
+														path={item.path}
+														name={item.name.toUpperCase()}
+														showAdmin={showAdmin}
+														subParentName={item.name.toUpperCase()}
+														hasSubMenu={item.hasSubMenu}
+														navigationPosition={this.navigationPosition}
+													/>
 												</>
 											);
 										})}
@@ -162,7 +146,9 @@ class RenderLinks extends Component {
 						</div>
 
 						<div className='col-lg-12'>
-							<div className={`text-white text-right ${classNameCat}`}>
+							<div
+								style={{ right: "0", top: 0, color: "black" }}
+								className={`text-right ${classNameCat} position-absolute  bg-dark p-3 text-white`}>
 								<h6 className='a-c1'>House span</h6>
 								<h6 className='a-c2'>Club / Bar</h6>
 								<h6 className='a-c3'>World</h6>
@@ -180,8 +166,14 @@ class RenderLinks extends Component {
 
 function mapStateToProps(state, ownProps) {
 	return {
+<<<<<<< HEAD
 		user: state.user.url,
+=======
+		// get the props from state (reasign)
+		user: state.user,
+		path: state.url,
+>>>>>>> ae108677445b8f5203e5faa1115bd735fbdb4700
 	};
 }
 
-export default connect(mapStateToProps, { getUser, detectUserPage })(RenderLinks);
+export default connect(mapStateToProps, { getUser })(Header);

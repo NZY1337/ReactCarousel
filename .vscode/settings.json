@@ -11,5 +11,9 @@
         "configurations": [],
         "compounds": []
     },
+<<<<<<< HEAD
     "editor.fontSize": 15
+=======
+    "editor.fontSize": 11.5
+>>>>>>> ae108677445b8f5203e5faa1115bd735fbdb4700
 }

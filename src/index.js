@@ -23,34 +23,44 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import rootReducer from "./redux/reducers";
+
 import "draft-js-focus-plugin/lib/plugin.css";
 import "draft-js-image-plugin/lib/plugin.css";
 import "draft-js-alignment-plugin/lib/plugin.css";
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
-ReactDOM.render(
-	<Provider store={store}>
-		<Router>
-			<>
-				<Header />
-				<Switch>
-					<Route path='/' exact component={Home} />
-					<Route path='/Portfolio' exact component={Portfolio} />
-					<Route path='/blog' exact component={Blog} />
-					<Route path='/about' exact component={About} />
-					<Route path='/interior-design' exact component={InteriorDesign} />
-					<Route path='/contact' exact component={Contact} />
-					<Route path='/admin-carousel' exact component={AdminCarousel} />
-					<Route path='/admin-blog' exact component={AdminBlog} />
-					<Route path='/login' exact component={AdminLogin} />
-				</Switch>
-				<Footer />
-			</>
-		</Router>
-	</Provider>,
-	document.getElementById("root"),
-);
+class App extends React.Component {
+
+
+	render() {
+		return (
+			<div>
+				<Provider store={store}>
+					<Router>
+						<>
+							<Header />
+							<Switch>
+								<Route path='/' exact component={Home} />
+								<Route path='/Portfolio' exact component={Portfolio} />
+								<Route path='/blog' exact component={Blog} />
+								<Route path='/about' exact component={About} />
+								<Route path='/interior-design' exact component={InteriorDesign} />
+								<Route path='/contact' exact component={Contact} />
+								<Route path='/admin-carousel' exact component={AdminCarousel} />
+								<Route path='/admin-blog' exact component={AdminBlog} />
+								<Route path='/login' exact component={AdminLogin} />
+							</Switch>
+							<Footer />
+						</>
+					</Router>
+				</Provider>
+			</div>
+		);
+	}
+}
+
+ReactDOM.render(<App />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

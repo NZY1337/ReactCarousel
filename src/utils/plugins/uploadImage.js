@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileImage } from "@fortawesome/free-solid-svg-icons";
 
 // Firebase Storage
-import {storage} from '../../firebase';
+import { storage } from '../../firebase';
 
 class UploadImage extends React.Component {
 
@@ -17,7 +17,7 @@ class UploadImage extends React.Component {
         this.state = {
             imageUrl: null
         }
-    }   
+    }
 
     handleChange = (e) => {
 
@@ -29,43 +29,41 @@ class UploadImage extends React.Component {
     };
 
     insertImage = (editorState, imgPath) => {
-		const contentState = editorState.getCurrentContent();
-		const contentStateWithEntity = contentState.createEntity("image", "IMMUTABLE", { src: imgPath });
-		const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
-		const newEditorState = EditorState.set(editorState, {
-			currentContent: contentStateWithEntity,
+        const contentState = editorState.getCurrentContent();
+        const contentStateWithEntity = contentState.createEntity("image", "IMMUTABLE", { src: imgPath });
+        const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+        const newEditorState = EditorState.set(editorState, {
+            currentContent: contentStateWithEntity,
         });
-        
 
-		return AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, " ");
-	} 
+        return AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, " ");
+    }
 
     handleUploadToFirebaseStorage = () => {
         const uploadTask = storage.ref(`images/${this.state.imageUrl.name}`).put(this.state.imageUrl);
         uploadTask.on(
             "state_changed",
-            snapshot => {},
+            snapshot => { },
             error => {
                 console.log(error)
             },
             () => {
                 storage
-                .ref("images")
-                .child(this.state.imageUrl.name)
-                .getDownloadURL()
-                .then( url => {
-                    this.displayUx(url)
-                })
+                    .ref("images")
+                    .child(this.state.imageUrl.name)
+                    .getDownloadURL()
+                    .then(url => {
+                        this.displayUx(url)
+                    })
             }
-            )
-
+        )
     }
 
     displayUx = (imgPath) => {
-        const {handleChange, editorState} = this.props;
+        const { handleChange, editorState } = this.props;
 
         const newEditorState = this.insertImage(editorState, imgPath);
-        
+
         // lifting the state from child -> parent, we need to pass the state from Parent
         handleChange(newEditorState);
     }
@@ -74,14 +72,14 @@ class UploadImage extends React.Component {
         return (
             <>
                 <label htmlFor='upload-img' className='mb-0 RichEditor-styleButton'>
-					<i>Upload</i>
-					<FontAwesomeIcon className='ml-2' icon={faFileImage} size='lg' />
-				</label>
+                    <i>Upload</i>
+                    <FontAwesomeIcon className='ml-2' icon={faFileImage} size='lg' />
+                </label>
 
-				<input id='upload-img' className='d-none' onChange={this.handleChange} type='file' />
+                <input id='upload-img' className='d-none' onChange={this.handleChange} type='file' />
 
-                {this.state.imageUrl && <button onClick={this.handleUploadToFirebaseStorage}>Upload Img To Firebase</button> }
-                
+                {this.state.imageUrl && <button type="button" onClick={this.handleUploadToFirebaseStorage}>Upload Img To Firebase</button>}
+
             </>
         )
     }

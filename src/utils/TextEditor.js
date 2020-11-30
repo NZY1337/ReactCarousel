@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { EditorState, RichUtils, AtomicBlockUtils } from "draft-js";
+import { EditorState, RichUtils, AtomicBlockUtils, convertToRaw, convertFromRaw } from "draft-js";
 
 import UploadImgUrl from "./ImageAdd";
 
@@ -20,6 +20,12 @@ import createResizeablePlugin from "draft-js-resizeable-plugin";
 // plugins
 import addLinkPlugin from "./plugins/addLinkPlugin";
 
+// redux
+import { connect } from "react-redux";
+import { getNote } from '../redux/actions/notesAction';
+import _ from "lodash";
+
+
 const highlightPlugin = createHighlightPlugin();
 const alignmentPlugin = createAlignmentPlugin();
 const focusPlugin = createFocusPlugin();
@@ -34,6 +40,8 @@ const decorator = composeDecorators(
 
 const imagePlugin = createImagePlugin({ decorator });
 
+
+
 class TextEditor extends React.Component {
 	constructor(props) {
 		super(props);
@@ -41,14 +49,9 @@ class TextEditor extends React.Component {
 
 		this.handleKeyCommand = this.handleKeyCommand.bind(this);
 
-		this.plugins = [
-			highlightPlugin,
-			addLinkPlugin,
-			imagePlugin,
-			alignmentPlugin,
-			resizeablePlugin,
-			focusPlugin,
-		];
+		this.plugins = [highlightPlugin, addLinkPlugin, imagePlugin, alignmentPlugin, resizeablePlugin, focusPlugin];
+
+		this.finalState = {}
 	}
 
 	handleClick = (e) => {
@@ -69,7 +72,10 @@ class TextEditor extends React.Component {
 		return AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, " ");
 	};
 
-	onChange = (editorState) => this.setState({ editorState });
+	onChange = (editorState) => {
+		this.setState({ editorState });
+		this.props.getStateEditorCallBack(editorState)
+	}
 
 	toggleBlockType = (blockType) => {
 		this.onChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
@@ -127,7 +133,37 @@ class TextEditor extends React.Component {
 		return "not-handled";
 	}
 
+	componentDidMount() {
+		this.props.getNote();
+
+		this.setState({
+			editorState: EditorState.createEmpty()
+		})
+	}
+
+	componentWillReceiveProps = (nextProps) => {
+		let item = null;
+		_.map(nextProps.note, (note, key) => {
+			return item = note
+		});
+
+		this.setState({
+			editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(item)))
+		})
+
+	}
+
+
 	render() {
+		const asd = _.map(this.props.note, (note, key) => {
+
+			return (
+				<div key={key}>
+					{note}
+				</div>
+			);
+		});
+
 		return (
 			<div className='editor'>
 				<BlockStyleToolbar
@@ -183,4 +219,14 @@ class TextEditor extends React.Component {
 	}
 }
 
+<<<<<<< HEAD
 export default TextEditor;
+=======
+function mapStateToProps(state, ownProps) {
+	return {
+		note: state.notes
+	}
+}
+
+export default connect(mapStateToProps, { getNote })(TextEditor);
+>>>>>>> ae108677445b8f5203e5faa1115bd735fbdb4700
