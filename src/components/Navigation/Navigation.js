@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from "react-router-dom";
 
 
-const Navigation = ({ links, children }) => {
+const Navigation = ({ links, children, toggleCateg }) => {
     const location = useLocation();
 
     let [subLinks, setSublinks] = useState([])
@@ -25,7 +25,7 @@ const Navigation = ({ links, children }) => {
 
     const changeMenuPosBasedOnSubLinks = () => {
         if (subLinks.includes(location.pathname)) {
-            setPos('position-relative')
+            setPos('bg-dark')
         } else {
             setPos('position-absolute');
         }
@@ -35,29 +35,11 @@ const Navigation = ({ links, children }) => {
         getSubLinksNav();
     }, []);
 
-
     useEffect(() => {
         changeMenuPosBasedOnSubLinks();
     });
 
-
-    // useEffect(() => {
-    //     changeMenuPosBasedOnSubLinks();
-    // }, [location]);
-
-
-
-
-
-    // if (location.pathname === sublink.path) {
-    //     setPosition('position-relative')
-    // } else {
-    //     setPosition('position-absolute')
-    // }
-
-
-
-
+    const classNameCat = toggleCateg ? "d-block" : "d-none";
 
     return (
         <>
@@ -67,6 +49,19 @@ const Navigation = ({ links, children }) => {
                     <div className='row'>
                         <div className='col-lg-12'>
                             {children}
+                        </div>
+
+                        <div className='col-lg-12'>
+                            <div
+                                style={{ right: "0", top: 0, color: "black" }}
+                                className={`text-right ${classNameCat} position-absolute  bg-dark p-3 text-white`}>
+                                <h6 className='a-c1'>House span</h6>
+                                <h6 className='a-c2'>Club / Bar</h6>
+                                <h6 className='a-c3'>World</h6>
+                                <h6 className='a-c4'>Business Office</h6>
+                                <h6 className='a-c5'>Hotel / Resport</h6>
+                                <h6 className='a-c6'>Shopping Mall</h6>
+                            </div>
                         </div>
                     </div>
                 </div>

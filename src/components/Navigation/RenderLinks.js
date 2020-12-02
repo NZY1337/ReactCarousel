@@ -6,26 +6,26 @@ export default function RenderLinks({ path, name, index, showAdmin, subParentNam
 	return (
 		<>
 			{!hasSubMenu ? (
-				<Link onClick={() => navigationPosition("position-absolute")} key={index} className='mb-0 mr-5 font-weight-bold nav-link' to={path}>
+				<Link key={index} className='mb-0 mr-5 font-weight-bold nav-link' to={path}>
 					{name}
 				</Link>
 			) : (
-				<NavDropdown title={subParentName} className={`mr-5 font-weight-bold ${showAdmin}`} id='nav-dropdown'>
-					{sublinks.map((sublink) => {
-						return (
-							<>
-								<Link
-									onClick={() => navigationPosition("position-relative")}
-									key={index}
-									className='mb-0 mr-5 font-weight-bold dropdown-item'
-									to={sublink.path}>
-									{sublink.name}
-								</Link>
-							</>
-						);
-					})}
-				</NavDropdown>
-			)}
+					<NavDropdown title={subParentName} className={`mr-5 font-weight-bold ${showAdmin}`} id='nav-dropdown'>
+						{sublinks.map((sublink) => {
+							return (
+								<>
+									<Link
+
+										key={index}
+										className='mb-0 mr-5 font-weight-bold dropdown-item'
+										to={sublink.path}>
+										{sublink.name}
+									</Link>
+								</>
+							);
+						})}
+					</NavDropdown>
+				)}
 		</>
 	);
 }
