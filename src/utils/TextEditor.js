@@ -137,23 +137,24 @@ class TextEditor extends React.Component {
 		return "not-handled";
 	}
 
+	// https://blog.logrocket.com/building-rich-text-editors-in-react-using-draft-js-and-react-draft-wysiwyg/
+	// https://stackoverflow.com/questions/55079782/how-to-definitely-replace-componentwillreceiveprops-and-keep-getting-the-nextpro
+
 	componentDidMount() {
 		this.props.getNote();
-
-		this.setState({
-			editorState: EditorState.createEmpty(),
-		});
 	}
 
 	componentWillReceiveProps = (nextProps) => {
-		let item = null;
-		_.map(nextProps.note, (note, key) => {
-			return (item = note);
-		});
+		if (nextProps.note !== null) {
+			let item = "";
+			_.map(nextProps.note, (note, key) => {
+				return (item = note);
+			});
 
-		this.setState({
-			editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(item))),
-		});
+			this.setState({
+				editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(item))),
+			});
+		}
 	};
 
 	render() {
@@ -211,6 +212,8 @@ class TextEditor extends React.Component {
 					/>
 					<AlignmentTool />
 				</div>
+
+				{asd}
 			</div>
 		);
 	}
