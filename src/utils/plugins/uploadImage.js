@@ -20,7 +20,6 @@ class UploadImage extends React.Component {
     }
 
     handleChange = (e) => {
-
         if (e.target.files[0]) {
             this.setState({
                 imageUrl: e.target.files[0],
@@ -40,6 +39,7 @@ class UploadImage extends React.Component {
     }
 
     handleUploadToFirebaseStorage = () => {
+        console.log(this.state.imageUrl)
         const uploadTask = storage.ref(`images/${this.state.imageUrl.name}`).put(this.state.imageUrl);
         uploadTask.on(
             "state_changed",
@@ -54,15 +54,19 @@ class UploadImage extends React.Component {
                     .getDownloadURL()
                     .then(url => {
                         this.displayUx(url)
+
+                        this.setState({
+                            imageUrl: url
+                        })
                     })
             }
         )
     }
 
-    displayUx = (imgPath) => {
+    displayUx = (url) => {
         const { handleChange, editorState } = this.props;
 
-        const newEditorState = this.insertImage(editorState, imgPath);
+        const newEditorState = this.insertImage(editorState, url);
 
         // lifting the state from child -> parent, we need to pass the state from Parent
         handleChange(newEditorState);

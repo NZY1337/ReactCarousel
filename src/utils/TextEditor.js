@@ -42,7 +42,7 @@ const imagePlugin = createImagePlugin({ decorator });
 class TextEditor extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { editorState: EditorState.createEmpty() };
+		this.state = { editorState: EditorState.createEmpty(), };
 
 		this.handleKeyCommand = this.handleKeyCommand.bind(this);
 
@@ -78,7 +78,7 @@ class TextEditor extends React.Component {
 
 	onChange = (editorState) => {
 		this.setState({ editorState });
-		this.props.getStateEditorCallBack(editorState);
+		this.props.getStateEditorCallBack(editorState, this.state.urlCallback);
 	};
 
 	toggleBlockType = (blockType) => {
@@ -148,7 +148,7 @@ class TextEditor extends React.Component {
 		if (nextProps.note !== null) {
 			let item = "";
 			_.map(nextProps.note, (note, key) => {
-				return (item = note);
+				item = note.post_content
 			});
 
 			this.setState({
@@ -195,6 +195,7 @@ class TextEditor extends React.Component {
 					editorState={this.state.editorState}
 					onChange={this.onChange}
 					modifier={imagePlugin.addImage}
+					urlCallback={this.sendUrlCoverCallBack}
 				/>
 
 				<UploadImage handleChange={this.onChange} editorState={this.state.editorState} />
@@ -212,9 +213,12 @@ class TextEditor extends React.Component {
 					/>
 					<AlignmentTool />
 				</div>
+				<div>
+					<h1>FMM</h1>
+				</div>
 
-				{asd}
 			</div>
+
 		);
 	}
 }

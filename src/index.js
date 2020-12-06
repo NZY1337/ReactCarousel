@@ -5,6 +5,7 @@ import "./App.scss";
 
 import About from "./components/Pages/About/About";
 import Blog from "./components/Pages/Blog/Blog";
+import BlogPost from "./components/Pages/Blog/BlogPost";
 import Contact from "./components/Pages/Contact/Contact";
 import InteriorDesign from "./components/Pages/InteriorDesign/InteriorDesign";
 import Portfolio from "./components/Pages/Portfolio/Portfolio";
@@ -32,7 +33,6 @@ const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk
 
 class App extends React.Component {
 
-
 	render() {
 		return (
 			<div>
@@ -44,6 +44,7 @@ class App extends React.Component {
 								<Route path='/' exact component={Home} />
 								<Route path='/Portfolio' exact component={Portfolio} />
 								<Route path='/blog' exact component={Blog} />
+								<Route path='/blog/:slug' exact component={BlogPost} />
 								<Route path='/about' exact component={About} />
 								<Route path='/interior-design' exact component={InteriorDesign} />
 								<Route path='/contact' exact component={Contact} />

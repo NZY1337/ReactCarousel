@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './footer.scss';
 import logo from '../../../assets/images/beadesignful-logo.png';
 
@@ -13,7 +13,7 @@ export default function Footer() {
 
             {
                 name: 'Create Your Future Today',
-                description:'Find all topics you care interested in, and we will deliver the best ideas for your apetite. Explore, Discover, Enjoy.',
+                description: 'Find all topics you care interested in, and we will deliver the best ideas for your apetite. Explore, Discover, Enjoy.',
                 bonus: ''
             },
 
@@ -41,7 +41,7 @@ export default function Footer() {
             link: ''
         }
     ]
-    
+
     return (
         <div>
             <footer className="py-5">
@@ -53,7 +53,7 @@ export default function Footer() {
                                     <h5>{item.name}</h5>
                                     <p>
                                         {item.description}
-                                        
+
 
                                         {/* different ternary operator, different cases */}
                                         {/* {
@@ -61,19 +61,19 @@ export default function Footer() {
                                         }  */}
 
                                         {
-                                            item.bonus && <a href="#" className="ml-2 text-danger">{item.bonus}</a>  
-                                        } 
+                                            item.bonus && <a href="#" className="ml-2 text-danger">{item.bonus}</a>
+                                        }
                                     </p>
                                 </div>
                             )
                         })}
                     </div>
 
-                    <hr className="w-100" style={{height: '1px', backgroundColor: 'white'}}/>
+                    <hr className="w-100" style={{ height: '1px', backgroundColor: 'white' }} />
 
                     <div className="row align-items-center">
                         <div className="col-sm-8">
-                            <img src={logo} style={{width:'60px', height:'60px'}} alt=""/>
+                            <img src={logo} style={{ width: '60px', height: '60px' }} alt="" />
                             <h2 className="d-inline-block align-middle ml-4">BeauDesignful</h2>
                         </div>
 
@@ -81,7 +81,7 @@ export default function Footer() {
                             <ul class="d-xl-flex" id="footer-nav">
                                 {footerMenu.map((item, index) => {
                                     return (
-                                        <li key={index}> 
+                                        <li key={index}>
                                             <a href="#">{item.name}</a>
                                         </li>
                                     )
