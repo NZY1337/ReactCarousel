@@ -2,13 +2,17 @@ import React, { Component } from "react";
 
 
 import Editor from "draft-js-plugins-editor";
-import { EditorState, convertFromRaw, convertToRaw } from "draft-js";
+import { EditorState, convertFromRaw, convertToRaw, convertFromHTML } from "draft-js";
 
+import { stateToHTML } from 'draft-js-export-html';
 
 // redux state
 import { connect } from "react-redux";
 import { getNote } from "../../../redux/actions/notesAction"
 import _ from "lodash";
+
+import './editor-post.scss';
+
 
 class BlogPost extends Component {
 	constructor(props) {
@@ -19,7 +23,8 @@ class BlogPost extends Component {
 
 			title: '',
 			description: '',
-			cover: ''
+			cover: '',
+			html: ''
 		}
 	}
 
@@ -31,6 +36,7 @@ class BlogPost extends Component {
 		const { slug } = this.props.match.params;
 
 		const post = _.find(nextProps.posts, post => post.post_slug === slug)
+		const postContent = post.post_content
 
 		this.setState({
 			title: post.post_title,
@@ -38,16 +44,11 @@ class BlogPost extends Component {
 			cover: post.post_cover
 		})
 
-		if (nextProps.posts !== null) {
-			let item = "";
-			_.map(nextProps.posts, (note, key) => {
-				item = note.post_content
-			});
+		// console.log(postContent)
 
-			this.setState({
-				editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(item))),
-			});
-		}
+		this.setState({
+			editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(postContent))),
+		});
 	};
 
 
@@ -55,12 +56,16 @@ class BlogPost extends Component {
 
 	render() {
 		const bgStyle = {
-			backgroundColor: 'black',
-			backgroundSize: 'cover',
-			backgroundRepeat: 'no-repeat',
-			height: '100vh',
+			backgroundColor: 'burlywood',
+			height: '100%',
+			paddingTop: '12rem'
 		}
 
+		let contentState = this.state.editorState.getCurrentContent();
+		const html = stateToHTML(contentState)
+		console.log(typeof html)
+		const asd = document.getElementById('asd');
+		if (asd) { asd.innerHTML = html }
 
 		return (
 			<div style={bgStyle} className="container-fluid">
@@ -69,10 +74,12 @@ class BlogPost extends Component {
 						<div className="col-lg-12 d-flex flex-column justify-content-center align-items-center h-100 text-white">
 
 							<h1>{this.state.title}</h1>
-							{this.state.cover && <img alt="blog-title" className="img-fluid col-lg-6" src={this.state.cover} />}
+							{this.state.cover && <img alt="blog-title" className="img-fluid mb-3" src={this.state.cover} />}
 							<p>{this.state.description}</p>
 
-							<Editor editorState={this.state.editorState} />
+						</div>
+
+						<div id="asd" className="col-lg-12 editor-post mb-5">
 
 						</div>
 					</div>

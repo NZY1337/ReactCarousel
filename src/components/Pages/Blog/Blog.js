@@ -19,7 +19,6 @@ class Blog extends Component {
 	}
 
 
-
 	componentDidMount() {
 		this.props.getNote();
 	}

@@ -6,7 +6,7 @@ import "../admin.scss";
 import TextEditor from "../../utils/TextEditor";
 
 import "react-datepicker/dist/react-datepicker.css";
-import { EditorState, convertToRaw } from "draft-js";
+import { EditorState, convertToRaw, convertFromRaw } from "draft-js";
 
 // import redux;
 import { connect } from "react-redux";
@@ -110,8 +110,10 @@ class AdminBlog extends Component {
 	sendNotes = (e) => {
 		e.preventDefault();
 
+		// get current state of the Editor
 		let contentState = this.state.editorState.getCurrentContent();
 
+		// post object
 		let blog_post = {
 			post_content: convertToRaw(contentState),
 			post_description: this.state.post_description,
@@ -121,14 +123,17 @@ class AdminBlog extends Component {
 			post_cover: this.state.post_cover_url
 		}
 
+		// sending the stringified version of convertedToRow object to DB
 		blog_post["post_content"] = JSON.stringify(blog_post.post_content);
 
+		// redux function which sends the data to ;DB
 		this.props.createNote(blog_post);
+
 	};
 
 	render() {
 		return (
-			<div className='container-fluid  admin-blog'>
+			<div className='container-fluid  admin-blog mb-5'>
 				<div className='container h-100'>
 					<div className='row h-100 justify-content-center'>
 						<div className='col-lg-10 h-100 d-flex flex-column  justify-content-center'>

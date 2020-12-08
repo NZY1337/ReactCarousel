@@ -213,10 +213,6 @@ class TextEditor extends React.Component {
 					/>
 					<AlignmentTool />
 				</div>
-				<div>
-					<h1>FMM</h1>
-				</div>
-
 			</div>
 
 		);
